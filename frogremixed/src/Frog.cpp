@@ -8,8 +8,7 @@
 
 #include "Frog.hpp"
 
-Frog::Frog() : SceneObject("frog", "resources/models/frog/frog", 5,
-			   1, 3){
+Frog::Frog() : SceneObject("frog", "resources/models/frog/frog", 5){
   this->State = STILL;
   this->setFrameDelay(4);
 }
