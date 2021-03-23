@@ -22,7 +22,7 @@ using namespace small3d;
 
 Game::Game() {
 
-  manRunning = new SceneObject("manRunning", "resources/anthropoid_run/anthropoid", 11, "", 0);
+  manRunning = new SceneObject("manRunning", "resources/anthropoid_run/anthropoid", 11, 0);
 
   manRunning->setFrameDelay(8);
 
