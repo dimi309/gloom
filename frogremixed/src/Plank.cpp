@@ -9,8 +9,7 @@
 #include "Plank.hpp"
 
 Plank::Plank() :
-  SceneObject("plank", "resources/models/plank/plank.obj", 1,
-	      "resources/models/plank/plankBB.obj") {
+  SceneObject("plank", "resources/models/plank/plank.obj") {
   colour = glm::vec4(0.5f, 0.3f, 0.3f, 1.0f);
 }
 

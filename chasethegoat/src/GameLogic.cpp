@@ -36,7 +36,7 @@ namespace ChaseTheGoat3D {
 
   GameLogic::GameLogic() :
     goat("goat", "resources/models/Goat/goatAnim",
-      19, "resources/models/GoatBB/GoatBB.obj"),
+	 19, 1, 3U),
     bug("bug", "resources/models/Bug/bugAnim", 9),
     bahSound("resources/sounds/bah.ogg") {
 
@@ -59,9 +59,6 @@ namespace ChaseTheGoat3D {
 
     Image goatTexture("resources/models/Goat/goat.png");
     renderer->generateTexture("goatTexture", goatTexture);
-
-    Image treeTexture("resources/models/Tree/tree.png");
-    renderer->generateTexture("treeTexture", treeTexture);
 
     bug.setFrameDelay(2);
 
