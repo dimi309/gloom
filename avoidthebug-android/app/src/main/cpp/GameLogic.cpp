@@ -44,10 +44,9 @@ namespace AvoidTheBug3D {
 
     GameLogic::GameLogic() :
             goat("goat", "resources/models/Goat/goatAnim",
-                 19, "resources/models/GoatBB/GoatBB.obj"),
+                 19, 1, 3),
             bug("bug", "resources/models/Bug/bugAnim", 9),
-            tree("tree", "resources/models/Tree/tree.obj",
-                 1, "resources/models/TreeBB/TreeBB.obj"),
+            tree("tree", "resources/models/Tree/tree.obj"),
             bahSound("resources/sounds/bah.ogg") {
 
         renderer = new Renderer("Avoid the Bug 3D", 854, 480);

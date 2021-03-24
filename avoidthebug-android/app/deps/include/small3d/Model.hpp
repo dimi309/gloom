@@ -26,16 +26,9 @@ namespace small3d {
   /**
    * @class	Model
    *
-   * @brief	A 3D model. It can be loaded from a Wavefront or glTF file.
-   *            In the case of a Wavefront file, the format has to be somewhat specific,
-   *            with triangulated faces and containing the normals. Such a file
-   *            can be exported from Blender for example (see blender.org).
-   *            From its menu, select File > Export > Wavefront (.obj). Then from the
-   *            "Export OBJ" menu, only select "Write Normals", "Triangulate Faces" 
-   *            and "Keep Vertex Order". Exporting .glb files is much simpler. Just do 
-   *            so using the default options.
-   *            The 3D model can also be constructed procedurally by code, by inserting
-   *            values to the appropriate member variables.
+   * @brief	A 3D model. It can be loaded from a WavefrontFile or GlbFile.
+   *        It can also be constructed procedurally by code, by inserting
+   *        values to the appropriate member variables.
    */
 
   class Model {
@@ -55,15 +48,43 @@ namespace small3d {
       std::string name;
       glm::mat4 inverseBindMatrix = glm::mat4(1.0f);
       glm::quat rotation = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
-      glm::vec3 scale = glm::vec3(0.0f, 0.0f, 0.0f);
+      glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
       glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
       glm::quat currRotation = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
       glm::vec3 currTranslation = glm::vec3(0.0f, 0.0f, 0.0f);
       std::vector<uint32_t> children;
       std::vector<glm::quat> rotationAnimation;
       std::vector<glm::vec3> translationAnimation;
+      std::vector<glm::vec3> scaleAnimation;
       std::vector<float> animTime;
     };
+
+    /**
+     * @brief Original transformation matrix (from armature/skin), 
+     *        as read from a file
+     */
+    glm::mat4 origTransformation = glm::mat4(1.0f);
+
+    /**
+     *  @brief Original rotation (from armature/skin), as read from a
+     *         file (in quaternion form)
+     */
+    glm::quat origRotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+
+    /**
+     *  @brief Original scale, as read from a file
+     */
+    glm::vec3 origScale = glm::vec3(1.0f, 1.0f, 1.0f);
+
+    /**
+     * @brief Use this to scale the model and not origScale
+     */
+    glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
+
+    /**
+     *  @brief Original translation, as read from a file
+     */
+    glm::vec3 origTranslation = glm::vec3(0.0f, 0.0f, 0.0f);
 
     /**
      * @brief Maximum number of supported joints

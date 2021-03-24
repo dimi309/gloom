@@ -1,6 +1,6 @@
 /**
  * @file  GlbFile.hpp
- * @brief GLB file parser
+ * @brief .glb file parser
  *
  *  Created on: 2021/01/30
  *      Author: Dimitri Kourkoulis
@@ -25,12 +25,18 @@ namespace small3d {
 
   /**
    * @class GlbFile
-   * @brief GLB file parser class
+   * @brief .glb (glTF) file parser class
    */
   class GlbFile : public File {
 
+  public:
+    /**
+     * @brief String saying that what comes before it is not a .glb file
+     */
+    static const std::string NOTGLTF;
+
   private:
-    
+
     enum class ValueType { number = 0, charstring, character, MARKER };
 
     struct Token {
@@ -41,7 +47,9 @@ namespace small3d {
     };
 
     struct Node {
+      uint32_t index = 0;
       std::string name = "";
+      glm::mat4 transformation = glm::mat4(1.0f);
       glm::quat rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
       glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
       glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -118,6 +126,14 @@ namespace small3d {
 
     Node getNode(const std::string& name);
 
+    bool existParentNode(const uint32_t index);
+
+    Node getParentNode(const uint32_t index);
+
+    bool existNodeForMesh(const uint32_t meshIndex);
+
+    Node getNodeForMesh(const uint32_t meshIndex);
+
     bool existSkin(const uint32_t index);
 
     Skin getSkin(const uint32_t index);
@@ -160,7 +176,20 @@ namespace small3d {
      */
     void printTokensSerial();
 
+    /**
+     * @brief Load a mesh from the file into a Model
+     * @param model The Model into which to load the data
+     * @param meshName The name of the mesh to load
+     * 
+     */
     void load(Model& model, const std::string& meshName);
+
+    /**
+     * @brief Get a list of the names of the meshes contained in the
+     *        file.
+     * @return The list of mesh names
+     */
+    std::vector<std::string> getMeshNames();
 
   };
 
