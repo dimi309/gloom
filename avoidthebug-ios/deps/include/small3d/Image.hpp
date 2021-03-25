@@ -21,7 +21,7 @@ namespace small3d {
   /**
    * @class Image
    *
-   * @brief An image, loaded from a png file, which can be used for
+   * @brief An image, loaded from a .png file, which can be used for
    *        generating textures.
    *
    */
@@ -44,6 +44,12 @@ namespace small3d {
       png_size_t byteCountToRead);
 
   public:
+
+    /**
+     * @brief String saying that the colour encoding of the image being read is not RGB/RGBA
+     *
+     */
+    static const std::string NOTRGBA;
 
     /**
      * @brief File-reading constructor

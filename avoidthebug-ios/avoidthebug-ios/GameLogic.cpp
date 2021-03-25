@@ -45,10 +45,9 @@ namespace AvoidTheBug3D {
 
   GameLogic::GameLogic() :
     goat("goat", "resources1/models/Goat/goatAnim",
-	 19, "resources1/models/GoatBB/GoatBB.obj"),
+	 19, 1, 3),
     bug("bug", "resources1/models/Bug/bugAnim", 9),
-    tree("tree", "resources1/models/Tree/tree.obj",
-	 1, "resources1/models/TreeBB/TreeBB.obj"),
+    tree("tree", "resources1/models/Tree/tree.obj"),
     bahSound("resources1/sounds/bah.ogg"){
       
     renderer->createRectangle(startScreenRect, glm::vec3(-1.0f, 1.0f, 1.0f),
