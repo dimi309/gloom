@@ -33,15 +33,15 @@ void Map::load(std::string filepath) {
     }
     LOGDEBUG("Loaded map.");
     mapfile.close();
-    xsize = mapData[0].size();
-    ysize = mapData.size();
+    xsize = static_cast<int>(mapData[0].size());
+    ysize = static_cast<int>(mapData.size());
   }
   else {
     throw std::runtime_error("Could not open map file.");
   }
 }
 
-const char* Map::getRegion(int coordx, int coordy, int radius) {
+const char* Map::getRegion(int coordx, int coordy, uint32_t radius) {
 
   if (radius > maxRegionRadius) {
     throw std::runtime_error("getRegion given region radius exceeded maximum possible value.");

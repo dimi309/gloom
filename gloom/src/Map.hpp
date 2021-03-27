@@ -17,7 +17,7 @@ private:
   std::vector<std::string> mapData;
   char *region;
   const uint32_t maxRegionRadius = 10;
-  int xsize, ysize;
+  int xsize = 0, ysize = 0;
   
 public:
   Map();
@@ -25,6 +25,6 @@ public:
   int getXsize();
   int getYsize();
   void load(std::string filepath);
-  const char* getRegion(int coordx, int coordy, int radius);
+  const char* getRegion(int coordx, int coordy, uint32_t radius);
   char getLocation(int coordx, int coordy);
 };

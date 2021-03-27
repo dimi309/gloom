@@ -332,7 +332,7 @@ void Game::process(const KeyInput& input) {
 
         float distanceX = renderer->cameraPosition.x - enemy->position.x + enemy->diffSectorX * sectorLength;
         float distanceZ = renderer->cameraPosition.z - enemy->position.z + enemy->diffSectorZ * sectorLength;
-        float distance = std::sqrt(std::pow(distanceX, 2) + std::pow(distanceZ, 2));
+        double distance = std::sqrt(std::pow(distanceX, 2) + std::pow(distanceZ, 2));
 
         glm::vec3 normVecToPlayer(distanceZ / distance, distanceX / distance, 0.0f);
         glm::vec3 normCamVec(cos(renderer->cameraRotation.y), sin(renderer->cameraRotation.y), 0.0f);
@@ -426,11 +426,11 @@ void Game::render() {
           manRunning->rotation.x = -1.75f;
           manRunning->rotation.y = 0.0f;
           manRunning->offset.y = -0.9f;
-          manRunning->stopAnimating();
+          
         }
         else {
           manRunning->rotation.x = 0.0f;
-          manRunning->startAnimating();
+          
           manRunning->animate();
         }
         renderer->render(*manRunning, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
