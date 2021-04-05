@@ -42,9 +42,9 @@ Game::Game() {
   yMapSize = map.getYsize();
 
   WavefrontFile w1("resources/cube.obj");
-  cube = Model(&w1, "");
+  cube = Model(w1, "");
   WavefrontFile w2("resources/plane.obj");
-  plane = Model(&w2, "");
+  plane = Model(w2, "");
 
   renderer->generateTexture("tileTexture", Image("resources/images/tile.png"));
 
