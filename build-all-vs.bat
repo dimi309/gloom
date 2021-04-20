@@ -25,7 +25,7 @@ endlocal & exit /b 1
 )
 
 echo Entering small3d directory (must have been copied here)...
-cd small3d
+cd small3d\scripts
 if %errorlevel% neq 0 endlocal & exit /b %errorlevel%
 call build-vs %1 %2
 if %errorlevel% neq 0 endlocal & exit /b %errorlevel%

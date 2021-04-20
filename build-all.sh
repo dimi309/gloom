@@ -17,7 +17,7 @@ exit_if_error() {
 }
 
 echo "Entering small3d directory (must have been copied here)..."
-cd small3d
+cd small3d/scripts
 exit_if_error
 ./build.sh $1 $2
 exit_if_error
