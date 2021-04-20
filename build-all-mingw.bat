@@ -29,7 +29,7 @@ cd small3d\scripts
 if %errorlevel% neq 0 endlocal & exit /b %errorlevel%
 call build-mingw %1 %2
 if %errorlevel% neq 0 endlocal & exit /b %errorlevel%
-cd ..
+cd ..\..
 
 if /I "%~1" == "debug" set CMAKE_DEFINITIONS=-DCMAKE_BUILD_TYPE=Debug
 if /I "%~1" == "release" set CMAKE_DEFINITIONS=-DCMAKE_BUILD_TYPE=Release

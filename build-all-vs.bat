@@ -29,7 +29,7 @@ cd small3d\scripts
 if %errorlevel% neq 0 endlocal & exit /b %errorlevel%
 call build-vs %1 %2
 if %errorlevel% neq 0 endlocal & exit /b %errorlevel%
-cd ..
+cd ..\..
 
 REM Not building ball because it needs to be skipped for OpenGL
 REM and continuing in a .bat for loop would produce a lot more
