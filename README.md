@@ -16,8 +16,6 @@ Building
 
 Set up [small3d](https://github.com/dimi309/small3d-conan) with [conan](https://conan.io) on your system.
 
-# small3d - conan
-
 At present, the [small3d conan recipe](https://github.com/dimi309/small3d-conan) is not available on any public conan repository. It needs to be set up locally as small3d/master.
 
 Before however, as a prerequisite, the [portaudio package for conan](https://github.com/bincrafters/community/tree/main/recipes/portaudio/19.7.0) also needs to be set up locally as portaudio/19.7.0.
