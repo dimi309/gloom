@@ -29,7 +29,7 @@ After doing the above, just clone this repository and run:
 	
 ... and run the game from the `bin` directory.
 	
-At present, Vulkan support is required for the game to run. On Linux, the Vulkan/MoltenVK .dylib has to be available in the path.
+At present, Vulkan support is required for the game to run. On MacOS, the Vulkan/MoltenVK .dylib has to be available in the path.
 
 I will enable OpenGL support on the small3d package soon (it is already supported by the small3d library).
 
