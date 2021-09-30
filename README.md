@@ -33,4 +33,3 @@ At present, Vulkan support is required for the game to run. On MacOS, the Vulkan
 
 I will enable OpenGL support on the small3d package soon (it is already supported by the small3d library).
 
-Sadly, on Linux, the portaudio package doesn't work, causing a crash :(
