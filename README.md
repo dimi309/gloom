@@ -22,8 +22,8 @@ Before however, as a prerequisite, the [portaudio package for conan](https://git
 
 After doing the above, just clone this repository and run:
 
-	conan install .
-	conan build . -s cppstd=14
+	conan install . -s cppstd=14
+	conan build .
 	
 ... and run the game from the `bin` directory.
 	
