@@ -18,7 +18,7 @@ Set up [small3d](https://github.com/dimi309/small3d-conan) with [conan](https://
 
 At present, the small3d package is not available on any public conan repository. It needs to be set up locally as small3d/master, using the [small3d conan recipe](https://github.com/dimi309/small3d-conan).
 
-Before however, as a prerequisite, the [portaudio package for conan](https://github.com/bincrafters/community/tree/main/recipes/portaudio/19.7.0) also needs to be set up locally as portaudio/19.7.0.
+Before however, as a prerequisite, the [portaudio package for conan](https://github.com/bincrafters/community/tree/main/recipes/portaudio/19.7.0) also needs to be set up locally as portaudio/19.7.0, unless you are using Linux where the portaudio package does not work anyway, and the Linux portaudio distribution is used.
 
 After doing the above, just clone this repository and run:
 
@@ -29,7 +29,4 @@ After doing the above, just clone this repository and run:
 	
 ... and run the game from the `bin` directory.
 	
-At present, Vulkan support is required for the game to run. On MacOS, the Vulkan/MoltenVK .dylib has to be available in the path.
-
-I will enable OpenGL support on the small3d package soon (it is already supported by the small3d library).
-
+In order to build the game to use vulkan, execute `conan install . -o vulkan=True`. Otherwise, OpenGL is used by default.
