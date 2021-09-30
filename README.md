@@ -29,4 +29,4 @@ After doing the above, just clone this repository and run:
 	
 ... and run the game from the `bin` directory.
 	
-In order to build the game to use vulkan, execute `conan install . -o vulkan=True`. Otherwise, OpenGL is used by default.
+In order to build the game to run on Vulkan, execute `conan install . -o vulkan=True`. Otherwise, OpenGL is used by default.
