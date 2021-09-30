@@ -1,7 +1,7 @@
 from conans import ConanFile, CMake, tools
 
 class GloomGameConan(ConanFile):
-    settings = "os", "compiler", "build_type", "arch"
+    settings = "os", "compiler", "build_type", "arch", "cppstd"
     generators = "cmake", "CMakeToolchain", "VirtualBuildEnv", "VirtualRunEnv"
     requires = "small3d/master"
 
