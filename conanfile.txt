@@ -1,0 +1,8 @@
+[requires]
+small3d/master
+
+[imports]
+resources/shaders, * -> ./resources/shaders
+
+[generators]
+cmake

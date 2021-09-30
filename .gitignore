@@ -1,0 +1,15 @@
+*.exe
+*.o
+*~
+a.out
+build
+deps
+.DS_Store
+/bin
+conan.lock
+conan_imports_manifest.txt
+conanbuildinfo.cmake
+conanbuildinfo.txt
+conaninfo.txt
+
+
