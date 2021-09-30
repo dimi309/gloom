@@ -29,4 +29,8 @@ After doing the above, just clone this repository and run:
 	
 ... and run the game from the `bin` directory.
 	
-At present, Vulkan support is required for the game to run. I will enable OpenGL support on the small3d package soon (it is already supported by the small3d library).
+At present, Vulkan support is required for the game to run. On Linux, the Vulkan/MoltenVK .dylib has to be available in the path.
+
+I will enable OpenGL support on the small3d package soon (it is already supported by the small3d library).
+
+Sadly, on Linux, the portaudio package doesn't work, causing a crash :(
