@@ -25,7 +25,7 @@ After doing the above, just clone this repository and run:
 	conan install .
 	conan build .
 	
-(use `conan install -s stdcpp=14` for compilers that do not support C++14 or at least C++11 by default. Otherwise the build will crash.)
+(use `conan install -s stdcpp=14` for compilers that do not support C++14 or at least C++11 by default. Otherwise the build will fail.)
 	
 ... and run the game from the `bin` directory.
 	
