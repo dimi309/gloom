@@ -30,7 +30,7 @@ for:
   - conan install . -s cppstd=14
   - conan build .
   - git clean -fdx
-  - conan install . -s cppstd=14 -o vulkan=True
+  - conan install . -s cppstd=14 -o vulkan=True --build=missing
   - conan build.
  
 -
@@ -59,7 +59,7 @@ for:
   - conan install .
   - conan build .
   - git clean -fdx
-  - conan install . -o vulkan=True
+  - conan install . -o vulkan=True --build=missing
   - conan build.
 
 -
@@ -84,7 +84,7 @@ for:
   - conan install . -s cppstd=14
   - conan build .
   - git clean -fdx
-  - conan install . -s cppstd=14 -o vulkan=True
+  - conan install . -s cppstd=14 -o vulkan=True --build=missing
   - conan build.
 
 build: off
