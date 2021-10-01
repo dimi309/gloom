@@ -1,0 +1,86 @@
+image:
+  - macos-bigsur
+  - Visual Studio 2019
+  - Ubuntu2004
+for:
+-
+  matrix:
+    only:
+      - image: macos-bigsur
+  install:
+  - source ~/venv3.9.6/bin/activate
+  - pip install --upgrade pip
+  - pip install conan
+  - curl https://sdk.lunarg.com/sdk/download/1.2.189.0/mac/vulkansdk-macos-1.2.189.0.dmg -o vulkansdk-macos-1.2.189.0.dmg
+  - sudo hdiutil attach vulkansdk-macos-1.2.189.0.dmg
+  - sudo /Volumes/vulkansdk-macos-1.2.189.0/InstallVulkan.app/Contents/MacOS/InstallVulkan --root ~/VulkanSDK/1.2.189.0 --accept-licenses --default-answer --confirm-command install
+  - sudo hdiutil detach /Volumes/vulkansdk-macos-1.2.189.0
+  
+  test_script:
+  - cd ..
+  - git clone https://github.com/bincrafters/community
+  - cd community/recipes/portaudio/19.7.0
+  - conan create . portaudio/19.7.0@
+  - cd ~/projects/small3d-conan
+  - conan create . -s cppstd=14 --build=missing
+  - conan create . -s cppstd=14 -o vulkan=True --build=missing
+  - cd ~/projects/gloom-game-conan
+  - conan install . -s cppstd=14
+  - conan build .
+  - git clean -fdx
+  - conan install . -s cppstd=14 -o vulkan=True
+  - conan build.
+ 
+-
+  matrix:
+    only:
+      - image: Visual Studio 2019
+
+  install:
+  - choco install vulkan-sdk
+  - refreshenv
+  - set PATH=C:\Python38-x64;C:\Python38-x64\scripts;%PATH%
+  - python -m pip install --upgrade pip
+  - pip install conan
+  
+  test_script:
+  - cd ..
+  - git clone https://github.com/bincrafters/community
+  - cd community/recipes/portaudio/19.7.0
+  - conan create . portaudio/19.7.0@
+  - cd \projects\small3d-conan
+  - conan create . --build=missing
+  - conan create . -o vulkan=True --build=missing
+  - cd \projects\gloom-game-conan
+  - conan install .
+  - conan build .
+  - git clean -fdx
+  - conan install . -o vulkan=True
+  - conan build.
+
+-
+  matrix:
+    only:
+      - image: Ubuntu2004
+
+  install:
+  - sudo apt-get -y install libgl-dev libglu1-mesa-dev
+  - source ~/venv3.9.6/bin/activate
+  - pip install --upgrade pip
+  - pip install conan
+  - conan profile update settings.compiler.libcxx=libstdc++11 default
+
+  test_script:
+  - cd ..
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
+  - conan create . --build=missing
+  - conan create . -o vulkan=True --build=missing
+  - cd ~/projects/gloom-game-conan
+  - conan install .
+  - conan build .
+  - git clean -fdx
+  - conan install . -o vulkan=True
+  - conan build.
+
+build: off

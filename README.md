@@ -1,6 +1,8 @@
 Gloom
 =====
 
+[![Build status](https://ci.appveyor.com/api/projects/status/5wkolhu8qg87j992?svg=true)](https://ci.appveyor.com/project/dimi309/gloom-game-conan)
+
 You are in a gloomy place and some anthropoids are trying to kill you.
 Kill them first.
 
