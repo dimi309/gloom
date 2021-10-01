@@ -24,14 +24,14 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan create . -s cppstd=14 --build=missing
+  - conan create . -s cppstd=14 -o vulkan=False --build=missing
   - conan create . -s cppstd=14 -o vulkan=True --build=missing
   - cd ~/projects/gloom-game-conan
-  - conan install . -s cppstd=14
+  - conan install . -s cppstd=14 -o vulkan=False --build=missing
   - conan build .
   - git clean -fdx
   - conan install . -s cppstd=14 -o vulkan=True --build=missing
-  - conan build.
+  - conan build .
  
 -
   matrix:
@@ -53,14 +53,14 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan create . --build=missing
+  - conan create . -o vulkan=False --build=missing
   - conan create . -o vulkan=True --build=missing
   - cd \projects\gloom-game-conan
-  - conan install .
+  - conan install . -o vulkan=False --build=missing
   - conan build .
   - git clean -fdx
   - conan install . -o vulkan=True --build=missing
-  - conan build.
+  - conan build .
 
 -
   matrix:
@@ -78,13 +78,13 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan create . -s cppstd=14 --build=missing
+  - conan create . -s cppstd=14 -o vulkan=False --build=missing
   - conan create . -s cppstd=14 -o vulkan=True --build=missing
   - cd ~/projects/gloom-game-conan
-  - conan install . -s cppstd=14
+  - conan install . -s cppstd=14 -o vulkan=False --build=missing
   - conan build .
   - git clean -fdx
   - conan install . -s cppstd=14 -o vulkan=True --build=missing
-  - conan build.
+  - conan build .
 
 build: off
