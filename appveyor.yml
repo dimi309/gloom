@@ -21,7 +21,9 @@ for:
   - git clone https://github.com/bincrafters/community
   - cd community/recipes/portaudio/19.7.0
   - conan create . portaudio/19.7.0@
-  - cd ~/projects/small3d-conan
+  - cd ..
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
   - conan create . -s cppstd=14 --build=missing
   - conan create . -s cppstd=14 -o vulkan=True --build=missing
   - cd ~/projects/gloom-game-conan
@@ -48,7 +50,9 @@ for:
   - git clone https://github.com/bincrafters/community
   - cd community/recipes/portaudio/19.7.0
   - conan create . portaudio/19.7.0@
-  - cd \projects\small3d-conan
+  - cd ..
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
   - conan create . --build=missing
   - conan create . -o vulkan=True --build=missing
   - cd \projects\gloom-game-conan
