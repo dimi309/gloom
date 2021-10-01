@@ -64,23 +64,23 @@ for:
       - image: Ubuntu2004
 
   install:
+  - sudo apt-get update
   - sudo apt-get -y install libgl-dev libglu1-mesa-dev
   - source ~/venv3.9.6/bin/activate
   - pip install --upgrade pip
   - pip install conan
-  - conan profile update settings.compiler.libcxx=libstdc++11 default
 
   test_script:
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan create . --build=missing
-  - conan create . -o vulkan=True --build=missing
+  - conan create . -s cppstd=14 --build=missing
+  - conan create . -s cppstd=14 -o vulkan=True --build=missing
   - cd ~/projects/gloom-game-conan
-  - conan install .
+  - conan install . -s cppstd=14
   - conan build .
   - git clean -fdx
-  - conan install . -o vulkan=True
+  - conan install . -s cppstd=14 -o vulkan=True
   - conan build.
 
 build: off
