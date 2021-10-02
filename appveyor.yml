@@ -1,5 +1,8 @@
 environment:
   matrix:
+    - job_name: Ubuntu Linux build (OpenGL & Vulkan)
+      appveyor_build_worker_image: Ubuntu2004
+      
     - job_name: Windows MinGW build (OpenGL)
       appveyor_build_worker_image: Visual Studio 2015
       
@@ -9,10 +12,35 @@ environment:
     - job_name: Windows VS 2019 build (OpenGL & Vulkan)
       appveyor_build_worker_image: Visual Studio 2019
       
-    - job_name: Ubuntu Linux build (OpenGL & Vulkan)
-      appveyor_build_worker_image: Ubuntu2004
-      
 for:
+-
+  matrix:
+    only:
+      - job_name: Ubuntu Linux build (OpenGL & Vulkan)
+
+  install:
+  - sudo apt-get update
+  - sudo apt-get -y install libgl-dev libglu1-mesa-dev
+  - source ~/venv3.9.6/bin/activate
+  - pip install --upgrade pip
+  - pip install conan
+
+  test_script:
+  - cd ..
+  - git clone https://github.com/dimi309/community
+  - cd community/recipes/portaudio/19.7.0
+  - conan export . portaudio/19.7.0@
+  - cd ..
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
+  - conan export .
+  - cd ~/projects/gloom-game-conan
+  - conan install . -s cppstd=14 --build=missing
+  - conan build .
+  - git clean -fdx
+  - conan install . -s cppstd=14 -o vulkan=True --build=missing
+  - conan build .
+
 -
   matrix:
     only:
@@ -102,34 +130,6 @@ for:
   - conan build .
   - git clean -fdx
   - conan install . -o vulkan=True --build=missing
-  - conan build .
-
--
-  matrix:
-    only:
-      - job_name: Ubuntu Linux build (OpenGL & Vulkan)
-
-  install:
-  - sudo apt-get update
-  - sudo apt-get -y install libgl-dev libglu1-mesa-dev
-  - source ~/venv3.9.6/bin/activate
-  - pip install --upgrade pip
-  - pip install conan
-
-  test_script:
-  - cd ..
-  - git clone https://github.com/dimi309/community
-  - cd community/recipes/portaudio/19.7.0
-  - conan export . portaudio/19.7.0@
-  - cd ..
-  - git clone https://github.com/dimi309/small3d-conan
-  - cd small3d-conan
-  - conan export .
-  - cd ~/projects/gloom-game-conan
-  - conan install . -s cppstd=14 --build=missing
-  - conan build .
-  - git clean -fdx
-  - conan install . -s cppstd=14 -o vulkan=True --build=missing
   - conan build .
 
 build: off
