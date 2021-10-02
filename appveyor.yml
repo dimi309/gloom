@@ -1,13 +1,22 @@
-image:
-  - Visual Studio 2015
-  - macos-bigsur
-  - Visual Studio 2019
-  - Ubuntu2004
+environment:
+  matrix:
+    - job_name: Windows MinGW build (OpenGL)
+      appveyor_build_worker_image: Visual Studio 2015
+      
+    - job_name: MacOS build (OpenGL & Vulkan)
+      appveyor_build_worker_image: macos-bigsur
+      
+    - job_name: Windows VS 2019 build (OpenGL & Vulkan)
+      appveyor_build_worker_image: Visual Studio 2019
+      
+    - job_name: Ubuntu Linux build (OpenGL & Vulkan)
+      appveyor_build_worker_image: Ubuntu2004
+      
 for:
 -
   matrix:
     only:
-      - image: Visual Studio 2015
+      - job_name: Windows MinGW build (OpenGL)
 
   install:
   - echo this is a MinGW build
@@ -41,7 +50,7 @@ for:
 -
   matrix:
     only:
-      - image: macos-bigsur
+      - job_name: MacOS build (OpenGL & Vulkan)
   install:
   - source ~/venv3.9.6/bin/activate
   - pip install --upgrade pip
@@ -70,7 +79,7 @@ for:
 -
   matrix:
     only:
-      - image: Visual Studio 2019
+      - job_name: Windows VS 2019 build (OpenGL & Vulkan)
 
   install:
   - choco install vulkan-sdk
@@ -98,7 +107,7 @@ for:
 -
   matrix:
     only:
-      - image: Ubuntu2004
+      - job_name: Ubuntu Linux build (OpenGL & Vulkan)
 
   install:
   - sudo apt-get update
