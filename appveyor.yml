@@ -1,8 +1,43 @@
 image:
+  - Visual Studio 2015
   - macos-bigsur
   - Visual Studio 2019
   - Ubuntu2004
 for:
+-
+  matrix:
+    only:
+      - image: Visual Studio 2015
+
+  install:
+  - echo this is a MinGW build
+  - set SELECTED_MINGW=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0
+  - set PATH=%PATH%;%SELECTED_MINGW%\mingw64\bin
+  - rmdir /Q /S C:\msys64
+  - rmdir /Q /S C:\MinGW
+  - del "C:\Program Files\Git\usr\bin\sh.exe"
+  - set PATH=C:\Python38-x64;C:\Python38-x64\scripts;%PATH%
+  - python -m pip install --upgrade pip
+  - pip install conan
+  - conan profile new mingw --detect
+  - conan profile update settings.compiler=gcc mingw
+  - conan profile update settings.compiler.version=8.1 mingw
+  - conan profile update settings.compiler.libcxx=libstdc++11 mingw
+  
+  test_script:
+  - cd ..
+  - git clone https://github.com/bincrafters/community
+  - cd community/recipes/portaudio/19.7.0
+  - conan export . portaudio/19.7.0@
+  - cd ..
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
+  - conan export .
+  - cd \projects\gloom-game-conan
+  - conan install . -pr=mingw --build=missing
+  - conan build .
+  # Vulkan package build crashes, so no Vulkan build here
+  
 -
   matrix:
     only:
@@ -20,14 +55,13 @@ for:
   - cd ..
   - git clone https://github.com/bincrafters/community
   - cd community/recipes/portaudio/19.7.0
-  - conan create . portaudio/19.7.0@
+  - conan export . portaudio/19.7.0@
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan create . -s cppstd=14 -o vulkan=False --build=missing
-  - conan create . -s cppstd=14 -o vulkan=True --build=missing
+  - conan export .
   - cd ~/projects/gloom-game-conan
-  - conan install . -s cppstd=14 -o vulkan=False --build=missing
+  - conan install . -s cppstd=14 --build=missing
   - conan build .
   - git clean -fdx
   - conan install . -s cppstd=14 -o vulkan=True --build=missing
@@ -49,14 +83,13 @@ for:
   - cd ..
   - git clone https://github.com/bincrafters/community
   - cd community/recipes/portaudio/19.7.0
-  - conan create . portaudio/19.7.0@
+  - conan export . portaudio/19.7.0@
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan create . -o vulkan=False --build=missing
-  - conan create . -o vulkan=True --build=missing
+  - conan export .
   - cd \projects\gloom-game-conan
-  - conan install . -o vulkan=False --build=missing
+  - conan install . --build=missing
   - conan build .
   - git clean -fdx
   - conan install . -o vulkan=True --build=missing
@@ -78,10 +111,9 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan create . -s cppstd=14 -o vulkan=False --build=missing
-  - conan create . -s cppstd=14 -o vulkan=True --build=missing
+  - conan export .
   - cd ~/projects/gloom-game-conan
-  - conan install . -s cppstd=14 -o vulkan=False --build=missing
+  - conan install . -s cppstd=14 --build=missing
   - conan build .
   - git clean -fdx
   - conan install . -s cppstd=14 -o vulkan=True --build=missing
