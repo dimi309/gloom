@@ -16,19 +16,27 @@ This is a reconfiguration of the same [small3d sample game](https://github.com/d
 Building
 --------
 
-Set up [small3d](https://github.com/dimi309/small3d-conan) with [conan](https://conan.io) on your system.
+Add the [Bincrafters repository](https://bincrafters.readthedocs.io/en/latest/using_packages.html#adding-the-bincrafters-repository-as-a-conan-remote):
 
-At present, the small3d package is not available on any public conan repository. It needs to be set up locally as small3d/master, using the [small3d conan recipe](https://github.com/dimi309/small3d-conan).
+    conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+    conan config set general.revisions_enabled=1
+ 
+Set up the small3d package locally:
 
-Before however, as a prerequisite, the [portaudio package for conan](https://github.com/dimi309/community/tree/main/recipes/portaudio/19.7.0) also needs to be set up locally as portaudio/19.7.0.
+    git clone https://github.com/dimi309/small3d-conan
+    cd small3d-conan
+    conan export .
+	 
+Then clone this repository and build and run the game:
 
-After doing the above, just clone this repository and run:
+     git clone https://github.com/dimi309/gloom-game-conan
+     cd gloom-game-conan
+     conan install . --build=missing
+     conan build .
+     cd bin
+     ./gloom
+     # (Or just `gloom` on Windows)
 
-	conan install .
-	conan build .
-	
-(use `conan install -s cppstd=14` for compilers that do not support C++14 or at least C++11 by default. Otherwise the build will fail.)
-	
-... and run the game from the `bin` directory.
+Use `conan install . -s cppstd=14 --build=missing` for compilers that do not support C++14 or at least C++11 by default. Otherwise the build will fail.)
 	
 In order to build the game to run on Vulkan, execute `conan install . -o vulkan=True`. Otherwise, OpenGL is used by default.
