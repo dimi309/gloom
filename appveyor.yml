@@ -29,10 +29,6 @@ for:
 
   test_script:
   - cd ..
-  - git clone https://github.com/dimi309/community
-  - cd community/recipes/portaudio/19.7.0
-  - conan export . portaudio/19.7.0@
-  - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
   - conan export .
@@ -67,10 +63,6 @@ for:
   
   test_script:
   - cd ..
-  - git clone https://github.com/dimi309/community
-  - cd community/recipes/portaudio/19.7.0
-  - conan export . portaudio/19.7.0@
-  - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
   - conan export .
@@ -95,10 +87,6 @@ for:
   - sudo hdiutil detach /Volumes/vulkansdk-macos-1.2.189.0
   
   test_script:
-  - cd ..
-  - git clone https://github.com/dimi309/community
-  - cd community/recipes/portaudio/19.7.0
-  - conan export . portaudio/19.7.0@
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
@@ -125,10 +113,6 @@ for:
   - conan config set general.revisions_enabled=1
   
   test_script:
-  - cd ..
-  - git clone https://github.com/dimi309/community
-  - cd community/recipes/portaudio/19.7.0
-  - conan export . portaudio/19.7.0@
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
