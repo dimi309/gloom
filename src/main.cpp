@@ -8,6 +8,7 @@
 
 #include "KeyInput.hpp"
 #include "Game.hpp"
+#include <small3d/Logger.hpp>
 
 KeyInput input;
 
@@ -49,6 +50,8 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action,
 }
 
 int main(int argc, char** argv) {
+
+  small3d::initLogger();
 
   Game game;
   
