@@ -389,9 +389,8 @@ void Game::renderEnv() {
 }
 
 void Game::render() {
-  renderer->clearScreen(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
   if (!inMenu) {
-
+    renderer->setBackgroundColour(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
     renderEnv();
     renderer->render(*gun, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
@@ -438,7 +437,7 @@ void Game::render() {
     }
   }
   else {
-    renderer->clearScreen(glm::vec4(0.5f, 0.0f, 0.0f, 1.0f));
+    renderer->setBackgroundColour(glm::vec4(0.5f, 0.0f, 0.0f, 1.0f));
     renderer->render(titleRect, MSG_TITLE, false);
     
     if (won || died) {
