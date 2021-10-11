@@ -23,8 +23,9 @@ Add the [Bincrafters repository](https://bincrafters.readthedocs.io/en/latest/us
  
 Set up the small3d package locally:
 
-    git clone https://github.com/dimi309/small3d-conan
-    cd small3d-conan
+    git clone https://github.com/dimi309/small3d
+	cd small3d
+	cd conan_io
     conan export .
 	 
 Then clone this repository and build and run the game:

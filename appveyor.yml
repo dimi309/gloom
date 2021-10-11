@@ -29,8 +29,8 @@ for:
 
   test_script:
   - cd ..
-  - git clone https://github.com/dimi309/small3d-conan
-  - cd small3d-conan
+  - git clone https://github.com/dimi309/small3d
+  - cd small3d/conan_io
   - conan export .
   - cd ~/projects/gloom-game-conan
   - conan install . -s cppstd=14 --build=missing
@@ -63,8 +63,8 @@ for:
   
   test_script:
   - cd ..
-  - git clone https://github.com/dimi309/small3d-conan
-  - cd small3d-conan
+  - git clone https://github.com/dimi309/small3d
+  - cd small3d/conan_io
   - conan export .
   - cd \projects\gloom-game-conan
   - conan install . -pr=mingw --build=missing
@@ -88,8 +88,8 @@ for:
   
   test_script:
   - cd ..
-  - git clone https://github.com/dimi309/small3d-conan
-  - cd small3d-conan
+  - git clone https://github.com/dimi309/small3d
+  - cd small3d/conan_io
   - conan export .
   - cd ~/projects/gloom-game-conan
   - conan install . -s cppstd=14 --build=missing
@@ -114,8 +114,8 @@ for:
   
   test_script:
   - cd ..
-  - git clone https://github.com/dimi309/small3d-conan
-  - cd small3d-conan
+  - git clone https://github.com/dimi309/small3d
+  - cd small3d/conan_io
   - conan export .
   - cd \projects\gloom-game-conan
   - conan install . --build=missing
