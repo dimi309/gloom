@@ -33,10 +33,10 @@ for:
   - cd small3d/conan_io
   - conan export .
   - cd ~/projects/gloom-game-conan
-  - conan install . -s cppstd=14 --build=missing
+  - conan install . -s cppstd=14 -o portaudio:with_jack=False --build=missing
   - conan build .
   - git clean -fdx
-  - conan install . -s cppstd=14 -o vulkan=True --build=missing
+  - conan install . -s cppstd=14 -o portaudio:with_jack=False -o vulkan=True --build=missing
   - conan build .
 
 -
