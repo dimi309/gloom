@@ -31,7 +31,7 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d
   - cd small3d/conan_io
-  - conan export .
+  - conan export . small3d/master@
   - cd ~/projects/gloom-game-conan
   - conan install . -s cppstd=14 -o portaudio:with_jack=False --build=missing
   - conan build .
@@ -65,7 +65,7 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d
   - cd small3d/conan_io
-  - conan export .
+  - conan export . small3d/master@
   - cd \projects\gloom-game-conan
   - conan install . -pr=mingw --build=missing
   - conan build .
@@ -90,7 +90,7 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d
   - cd small3d/conan_io
-  - conan export .
+  - conan export . small3d/master@
   - cd ~/projects/gloom-game-conan
   - conan install . -s cppstd=14 --build=missing
   - conan build .
@@ -116,7 +116,7 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d
   - cd small3d/conan_io
-  - conan export .
+  - conan export . small3d/master@
   - cd \projects\gloom-game-conan
   - conan install . --build=missing
   - conan build .
