@@ -13,13 +13,13 @@ This is a reconfiguration of the same [small3d sample game](https://github.com/d
 ![screenshot](screenshot.png)
 
 
-Building
---------
+Building with conan
+-------------------
 
-Add the [Bincrafters repository](https://bincrafters.readthedocs.io/en/latest/using_packages.html#adding-the-bincrafters-repository-as-a-conan-remote):
+Add the [Barbarian repository](https://barbarian.bfgroup.xyz):
 
-    conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
-    conan config set general.revisions_enabled=1
+	conan remote add barbarian-github https://barbarian.bfgroup.xyz/github
+	conan config set general.revisions_enabled=1
  
 Set up the small3d package locally:
 
