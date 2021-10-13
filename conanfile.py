@@ -5,7 +5,7 @@ class GloomGameConan(ConanFile):
     options = {"vulkan": [True, False]}
     default_options = {"vulkan": False}
     generators = "cmake", "CMakeToolchain", "VirtualBuildEnv", "VirtualRunEnv"
-    requires = "small3d/master"
+    requires = "small3d/master@dimi309/small3d"
 
     def config_options(self):
         self.options["small3d"].vulkan = self.options.vulkan

@@ -19,14 +19,6 @@ Building with conan
 Add the [Barbarian repository](https://barbarian.bfgroup.xyz):
 
 	conan remote add barbarian-github https://barbarian.bfgroup.xyz/github
-	conan config set general.revisions_enabled=1
- 
-Set up the small3d package locally:
-
-    git clone https://github.com/dimi309/small3d
-	cd small3d
-	cd conan_io
-    conan export . small3d/master@
 	 
 Then clone this repository and build and run the game:
 
