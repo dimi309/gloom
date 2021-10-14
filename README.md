@@ -16,7 +16,7 @@ This is a reconfiguration of the same [small3d sample game](https://github.com/d
 Building with conan
 -------------------
 
-Add the [Barbarian repository](https://barbarian.bfgroup.xyz):
+Add the [Barbarian package index](https://barbarian.bfgroup.xyz):
 
 	conan remote add barbarian-github https://barbarian.bfgroup.xyz/github
 	 
