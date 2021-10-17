@@ -47,7 +47,6 @@ Game::Game() {
   plane = Model(w2, "");
 
   renderer->generateTexture("tileTexture", Image("resources/images/tile.png"));
-
   renderer->cameraPosition.y = -0.1f;
 
   Enemy enemy;
@@ -132,7 +131,7 @@ void Game::process(const KeyInput& input) {
 
   if (!inMenu) {
     if (dieCount > 0) {
-      renderer->cameraRotation.y -= 1.0f;
+      renderer->rotateCamera(glm::vec3(0.0f, -1.0f, 0.0f));
       --dieCount;
       if (dieCount == 0) {
         died = true;
@@ -156,28 +155,21 @@ void Game::process(const KeyInput& input) {
 
 
       if (input.left) {
-        renderer->cameraRotation.y += CAMERA_ROTATION_SPEED;
+        renderer->rotateCamera(glm::vec3(0.0f, CAMERA_ROTATION_SPEED, 0.0f));
       }
       else if (input.right) {
-        renderer->cameraRotation.y -= CAMERA_ROTATION_SPEED;
-      }
-
-      if (renderer->cameraRotation.y > 3.14f) {
-        renderer->cameraRotation.y -= 6.28f;
-      }
-      else if (renderer->cameraRotation.y < -3.14f) {
-        renderer->cameraRotation.y += 6.28f;
+        renderer->rotateCamera(glm::vec3(0.0f, -CAMERA_ROTATION_SPEED, 0.0f));
       }
 
       if (input.up) {
 
-        renderer->cameraPosition.x -= sin(renderer->cameraRotation.y) * CAMERA_SPEED;
-        renderer->cameraPosition.z -= cos(renderer->cameraRotation.y) * CAMERA_SPEED;
+        renderer->cameraPosition.x += renderer->getCameraOrientation().x * CAMERA_SPEED;
+        renderer->cameraPosition.z += renderer->getCameraOrientation().z * CAMERA_SPEED;
 
       }
       else if (input.down) {
-        renderer->cameraPosition.x += sin(renderer->cameraRotation.y) * CAMERA_SPEED;
-        renderer->cameraPosition.z += cos(renderer->cameraRotation.y) * CAMERA_SPEED;
+        renderer->cameraPosition.x -= renderer->getCameraOrientation().x * CAMERA_SPEED;
+        renderer->cameraPosition.z -= renderer->getCameraOrientation().z * CAMERA_SPEED;
       }
 
       if (renderer->cameraPosition.x < -sectorRadius + 2.0f &&
@@ -236,12 +228,14 @@ void Game::process(const KeyInput& input) {
         }
       }
 
-      gun->rotation = renderer->cameraRotation;
-      gun->rotation.x += shootCount * 0.3f;
+      auto gunRotation = renderer->getCameraRotationXYZ();
+      gunRotation.x += shootCount * 0.3f;
+      gun->setRotation(gunRotation);
+      
       gun->offset = renderer->cameraPosition;
       gun->offset.y -= 0.9f;
-      gun->offset.x -= sin(renderer->cameraRotation.y) * 1.8f;
-      gun->offset.z -= cos(renderer->cameraRotation.y) * 1.8f;
+      gun->offset.x += renderer->getCameraOrientation().x * 1.8f;
+      gun->offset.z += renderer->getCameraOrientation().z * 1.8f;
 
       bool killedOne = false;
 
@@ -335,7 +329,7 @@ void Game::process(const KeyInput& input) {
         double distance = std::sqrt(std::pow(distanceX, 2) + std::pow(distanceZ, 2));
 
         glm::vec3 normVecToPlayer(distanceZ / distance, distanceX / distance, 0.0f);
-        glm::vec3 normCamVec(cos(renderer->cameraRotation.y), sin(renderer->cameraRotation.y), 0.0f);
+        glm::vec3 normCamVec(cos(renderer->getCameraRotationXYZ().y), sin(renderer->getCameraRotationXYZ().y), 0.0f);
         enemy->dotp = normVecToPlayer.x * normCamVec.x + normVecToPlayer.y * normCamVec.y;
 
         if (!enemy->dead && enemy->dotp > 0.992f && shootCount == SHOOT_DURATION && !killedOne) {
@@ -389,8 +383,9 @@ void Game::renderEnv() {
 }
 
 void Game::render() {
+  renderer->setBackgroundColour(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
   if (!inMenu) {
-    renderer->setBackgroundColour(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+
     renderEnv();
     renderer->render(*gun, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
@@ -402,33 +397,36 @@ void Game::render() {
         int ycoeff = 0;
 
         if (enemy->diffSectorX < 0 || (enemy->diffSectorX == 0 && renderer->cameraPosition.x - enemy->position.x < 0)) {
-          manRunning->rotation.y = -1.7f;
+          manRunning->setRotation(glm::vec3(0.0f, -1.7f, 0.0f));
           if (std::abs(enemy->diffSectorX) <= std::abs(enemy->diffSectorZ)) {
             ycoeff = -1;
           }
         }
         else {
-          manRunning->rotation.y = 1.7f;
+          manRunning->setRotation(glm::vec3(0.0f, 1.7f, 0.0f));
           if (std::abs(enemy->diffSectorX) <= std::abs(enemy->diffSectorZ)) {
             ycoeff = 1;
           }
         }
 
         if (enemy->diffSectorZ < 0 || (enemy->diffSectorZ == 0 && renderer->cameraPosition.z - enemy->position.z < 0)) {
-          manRunning->rotation.y += ycoeff * 0.85f;
+          manRunning->rotate(glm::vec3(0.0f, ycoeff * 0.85f, 0.0f));
         }
         else {
-          manRunning->rotation.y -= ycoeff * 0.85f;
+          manRunning->rotate(glm::vec3(0.0f, -ycoeff * 0.85f, 0.0f));
         }
 
         if (enemy->dead) {
-          manRunning->rotation.x = -1.75f;
-          manRunning->rotation.y = 0.0f;
+          manRunning->setRotation(glm::vec3(-1.75f, 0.0f, 0.0f));
           manRunning->offset.y = -0.9f;
           
         }
         else {
-          manRunning->rotation.x = 0.0f;
+
+          auto manRotation = manRunning->getRotationXYZ();
+          manRotation.x = 0.0f;
+
+          manRunning->setRotation(manRotation);
           
           manRunning->animate();
         }

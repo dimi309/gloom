@@ -28,7 +28,6 @@ private:
   const float sectorRadius = 6.0f;
   const float sectorLength = 2 * sectorRadius;
   const float enemySectorRadius = 6.0f;
-  
   std::string fontFile = "resources/fonts/CrusoeText/CrusoeText-Regular.ttf";
 
   int shootCount = 0;
