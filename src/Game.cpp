@@ -26,7 +26,7 @@ Game::Game() {
 
   manRunning->setFrameDelay(8);
 
-  manRunning->offset = glm::vec3(1.0f, -1.0f, -3.0f);
+  manRunning->position = glm::vec3(1.0f, -1.0f, -3.0f);
   manRunning->startAnimating();
 
   gun = new SceneObject("gun", "resources/gun.obj");
@@ -232,10 +232,10 @@ void Game::process(const KeyInput& input) {
       gunRotation.x += shootCount * 0.3f;
       gun->setRotation(gunRotation);
       
-      gun->offset = renderer->cameraPosition;
-      gun->offset.y -= 0.9f;
-      gun->offset.x += renderer->getCameraOrientation().x * 1.8f;
-      gun->offset.z += renderer->getCameraOrientation().z * 1.8f;
+      gun->position = renderer->cameraPosition;
+      gun->position.y -= 0.9f;
+      gun->position.x += renderer->getCameraOrientation().x * 1.8f;
+      gun->position.z += renderer->getCameraOrientation().z * 1.8f;
 
       bool killedOne = false;
 
@@ -391,8 +391,8 @@ void Game::render() {
 
     for (std::vector<Enemy>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
       if (enemy->inRange) {
-        manRunning->offset.x = -enemy->diffSectorX * sectorLength + enemy->position.x;
-        manRunning->offset.z = -enemy->diffSectorZ * sectorLength + enemy->position.z;
+        manRunning->position.x = -enemy->diffSectorX * sectorLength + enemy->position.x;
+        manRunning->position.z = -enemy->diffSectorZ * sectorLength + enemy->position.z;
 
         int ycoeff = 0;
 
@@ -418,7 +418,7 @@ void Game::render() {
 
         if (enemy->dead) {
           manRunning->setRotation(glm::vec3(-1.75f, 0.0f, 0.0f));
-          manRunning->offset.y = -0.9f;
+          manRunning->position.y = -0.9f;
           
         }
         else {
