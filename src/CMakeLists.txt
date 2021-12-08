@@ -1,4 +1,5 @@
-add_executable(gloom main.cpp Game.cpp Map.cpp Enemy.cpp KeyInput.hpp Game.hpp Map.hpp Enemy.hpp)
+file(GLOB SOURCE_FILES *.*pp)
+add_executable(gloom ${SOURCE_FILES})
 target_link_libraries(gloom PUBLIC ${CONAN_LIBS})
 
 if(MSVC)
