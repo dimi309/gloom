@@ -1,5 +1,11 @@
 file(GLOB SOURCE_FILES *.*pp)
-add_executable(gloom ${SOURCE_FILES})
+
+if(WIN32)
+  add_executable(gloom ${SOURCE_FILES} resources.rc)
+else()
+  add_executable(gloom ${SOURCE_FILES})
+endif()
+
 target_link_libraries(gloom PUBLIC ${CONAN_LIBS})
 
 if(MSVC)
