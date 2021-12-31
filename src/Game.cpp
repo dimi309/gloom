@@ -150,6 +150,7 @@ void Game::process(const KeyInput& input) {
     else {
       if (input.space && shootCount == 0) {
         shootCount = SHOOT_DURATION;
+	gunshot.stop();
         gunshot.play();
       }
 
