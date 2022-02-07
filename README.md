@@ -10,8 +10,15 @@ Move with the arrows. Shoot with the spacebar. Escape to quit the game.
 
 ![screenshot](screenshot.png)
 
-Building with conan
--------------------
+# Building
+
+## Prerequisites
+
+- A C++ compiler
+- Git
+- The [conan](https://conan.io) package manager
+	
+## Procedure
 
 Add the [Barbarian package index](https://barbarian.bfgroup.xyz):
 
