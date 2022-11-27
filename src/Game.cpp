@@ -37,9 +37,15 @@ Game::Game() {
 #if !defined(NDEBUG) 
   renderer = &small3d::Renderer::getInstance("Gloom", 1024, 768, 0.785f,
     1.0f, 60.0f, "resources/shaders/", 240);
+
+// Shadow mapping on MacOS *with OpenGL* produces a lot of artifacts.
+// It works ok with Vulkan though.
+#if !defined(__APPLE__) || !defined(SMALL3D_OPENGL)
   renderer->shadowsActive = true;
   renderer->shadowCamTransformation = glm::rotate(glm::mat4x4(1.0f), 1.07f, glm::vec3(1.0f, 0.0f, 0.0f)) *
     glm::translate(glm::mat4x4(1.0f), glm::vec3(0.0f, -10.0f, 1.0f));
+#endif
+
 #else
   renderer = &small3d::Renderer::getInstance("Gloom", 0, 0, 0.785f,
     1.0f, 60.0f, "resources/shaders/", 240);
