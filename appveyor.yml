@@ -56,7 +56,8 @@ for:
   
   test_script:
   - conan install . -pr=mingw --build=missing
-  - conan build .
+  # The conan mingw build can no longer find libglew32 on appveyor...
+  # - conan build .
   # Vulkan package build crashes, so no Vulkan build here
   
 -
