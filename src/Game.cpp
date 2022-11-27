@@ -38,6 +38,8 @@ Game::Game() {
   renderer = &small3d::Renderer::getInstance("Gloom", 1024, 768, 0.785f,
     1.0f, 60.0f, "resources/shaders/", 240);
   renderer->shadowsActive = true;
+  renderer->shadowCamTransformation = glm::rotate(glm::mat4x4(1.0f), 1.07f, glm::vec3(1.0f, 0.0f, 0.0f)) *
+    glm::translate(glm::mat4x4(1.0f), glm::vec3(0.0f, -10.0f, 1.0f));
 #else
   renderer = &small3d::Renderer::getInstance("Gloom", 0, 0, 0.785f,
     1.0f, 60.0f, "resources/shaders/", 240);
