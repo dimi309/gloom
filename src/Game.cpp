@@ -37,6 +37,7 @@ Game::Game() {
 #if !defined(NDEBUG) 
   renderer = &small3d::Renderer::getInstance("Gloom", 1024, 768, 0.785f,
     1.0f, 60.0f, "resources/shaders/", 240);
+  renderer->shadowsActive = true;
 #else
   renderer = &small3d::Renderer::getInstance("Gloom", 0, 0, 0.785f,
     1.0f, 60.0f, "resources/shaders/", 240);
@@ -49,8 +50,10 @@ Game::Game() {
 
   WavefrontFile w1("resources/cube.obj");
   cube = Model(w1, "");
+  cube.noShadow = true;
   WavefrontFile w2("resources/plane.obj");
   plane = Model(w2, "");
+  plane.noShadow = true;
 
   renderer->generateTexture("tileTexture", Image("resources/images/tile.png"));
   renderer->cameraPosition.y = -0.1f;
