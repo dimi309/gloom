@@ -16,7 +16,7 @@ Move with the arrows. Shoot with the spacebar. Escape to quit the game.
 
 - A C++ compiler
 - Git
-- The [conan](https://conan.io) package manager
+- The [conan](https://conan.io) package manager. Please use version 1.59.0. Not all required packages work well with version 2.0 yet.
 	
 ## Procedure
 
