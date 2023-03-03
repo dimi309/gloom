@@ -29,9 +29,9 @@ Deploy my variation of the portaudio package for conan as a prerequisite:
 
 And of course, small3d too:
 
-	git clone https://github.com/dimi309/small3d
-	cd small3d
-	conan export . --version=master
+	git clone https://github.com/dimi309/small3d-conan
+	cd small3d-conan
+	conan export .
 
 Then clone this repository and build and run the game:
 
