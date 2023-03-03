@@ -1,19 +1,19 @@
 environment:
   matrix:
-    - job_name: Ubuntu Linux build (OpenGL & Vulkan)
+    - job_name: Ubuntu Linux build
       appveyor_build_worker_image: Ubuntu2004
       
-    - job_name: MacOS build (OpenGL & Vulkan)
+    - job_name: MacOS build
       appveyor_build_worker_image: macos-bigsur
       
-    - job_name: Windows VS 2019 build (OpenGL & Vulkan)
+    - job_name: Windows VS 2019 build
       appveyor_build_worker_image: Visual Studio 2019
       
 for:
 -
   matrix:
     only:
-      - job_name: Ubuntu Linux build (OpenGL & Vulkan)
+      - job_name: Ubuntu Linux build
 
   install:
   - sudo apt-get update
@@ -29,29 +29,22 @@ for:
   - cd portaudio-conan
   - conan export . --version=19.7.0
   - cd ..
-  - git clone https://github.com/dimi309/small3d
-  - cd small3d
-  - conan export . --version=master
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
+  - conan export .
   - cd ../gloom
   - conan install . --build=missing
   - conan build .
-#  - git clean -fdx
-#  - conan install . -o vulkan=True --build=missing
-#  - conan build .
 
 -
   matrix:
     only:
-      - job_name: MacOS build (OpenGL & Vulkan)
+      - job_name: MacOS build
   install:
   - source ~/venv3.10/bin/activate
   - pip install --upgrade pip
   - pip install conan
   - conan profile detect
-  - curl https://sdk.lunarg.com/sdk/download/1.2.189.0/mac/vulkansdk-macos-1.2.189.0.dmg -o vulkansdk-macos-1.2.189.0.dmg
-  - sudo hdiutil attach vulkansdk-macos-1.2.189.0.dmg
-  - sudo /Volumes/vulkansdk-macos-1.2.189.0/InstallVulkan.app/Contents/MacOS/InstallVulkan --root ~/VulkanSDK/1.2.189.0 --accept-licenses --default-answer --confirm-command install
-  - sudo hdiutil detach /Volumes/vulkansdk-macos-1.2.189.0
   
   test_script:
   - cd ..
@@ -59,24 +52,19 @@ for:
   - cd portaudio-conan
   - conan export . --version=19.7.0
   - cd ..
-  - git clone https://github.com/dimi309/small3d
-  - cd small3d
-  - conan export . --version=master
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
+  - conan export .
   - cd ../gloom
   - conan install . --build=missing
   - conan build .
-#  - git clean -fdx
-#  - conan install . -o vulkan=True --build=missing
-#  - conan build .
  
 -
   matrix:
     only:
-      - job_name: Windows VS 2019 build (OpenGL & Vulkan)
+      - job_name: Windows VS 2019 build
 
   install:
-  - choco install vulkan-sdk
-  - refreshenv
   - set PATH=C:\Python38-x64;C:\Python38-x64\scripts;%PATH%
   - python -m pip install --upgrade pip
   - pip install conan
@@ -89,14 +77,11 @@ for:
   - cd portaudio-conan
   - conan export . --version=19.7.0
   - cd ..
-  - git clone https://github.com/dimi309/small3d
-  - cd small3d
-  - conan export . --version=master
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
+  - conan export .
   - cd ../gloom
   - conan install . --build=missing
   - conan build .
-#  - git clean -fdx
-#  - conan install . -o vulkan=True --build=missing
-#  - conan build .
 
 build: off
