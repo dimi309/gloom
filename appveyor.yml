@@ -33,8 +33,7 @@ for:
   - cd small3d-conan
   - conan export .
   - cd ../gloom
-  - conan install . --build=missing
-  - conan build .
+  - conan build . --build=missing
 
 -
   matrix:
@@ -56,8 +55,7 @@ for:
   - cd small3d-conan
   - conan export .
   - cd ../gloom
-  - conan install . --build=missing
-  - conan build .
+  - conan build . --build=missing
  
 -
   matrix:
@@ -81,7 +79,6 @@ for:
   - cd small3d-conan
   - conan export .
   - cd ../gloom
-  - conan install . --build=missing
-  - conan build .
+  - conan build . --build=missing
 
 build: off

@@ -37,8 +37,7 @@ Then clone this repository and build and run the game:
 
      git clone https://github.com/dimi309/gloom
      cd gloom
-     conan install . --build=missing
-     conan build .
+     conan build . --build=missing
      cd bin
      ./gloom
      # (Or just `gloom` on Windows)
