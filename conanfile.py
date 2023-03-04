@@ -15,6 +15,7 @@ class GloomGameConan(ConanFile):
         tc.generate()
         copy(self, "*vert", self.dependencies["small3d"].cpp_info.bindirs[0], os.path.join(self.build_folder, "bin"))
         copy(self, "*frag", self.dependencies["small3d"].cpp_info.bindirs[0], os.path.join(self.build_folder, "bin"))
+        copy(self, "*spv", self.dependencies["small3d"].cpp_info.bindirs[0], os.path.join(self.build_folder, "bin"))
         
     def build(self):
         cmake = CMake(self)
