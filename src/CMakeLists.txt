@@ -26,21 +26,9 @@ else()
 endif()
 
 target_include_directories(gloom PUBLIC ${CMAKE_INCLUDE_PATH})
-
-MESSAGE(STATUS "Linking to: "
-  ${small3d_LIBRARIES} ", "
-  ${glew_LIBRARIES} ", "
-  ${opengl_system_LIBRARIES} ", "
-  ${glfw3_LIBRARIES} ", "
-  ${libpng_LIBRARIES_RELEASE} ", "
-  ${vorbis_LIBRARIES_RELEASE} ", "
-  ${ogg_LIBRARIES_RELEASE} ", "
-  ${portaudio_LIBRARIES} ", "
-  ${freetype_LIBRARIES}
-  )
   
 target_link_libraries(gloom PUBLIC
- ${small3d_LIBRARIES}
+  ${small3d_LIBRARIES}
   ${glew_LIBRARIES}
   ${opengl_system_LIBRARIES}
   ${glfw3_LIBRARIES}
