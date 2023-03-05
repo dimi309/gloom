@@ -55,6 +55,6 @@ for vulkan, replace the build command by:
 
 	conan build . -o small3d/*:vulkan=True --build=missing
 	
-Make sure you clean the repository between different build:
+Make sure you clean the repository between different builds:
 
 	git clean -fdx
