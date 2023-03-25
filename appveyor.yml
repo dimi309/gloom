@@ -33,7 +33,7 @@ for:
   - cd small3d-conan
   - conan export .
   - cd ../gloom
-  - conan build . --build=missing
+  - conan build . --build=missing -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
 
 -
   matrix:
