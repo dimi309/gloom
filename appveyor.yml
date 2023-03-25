@@ -32,29 +32,14 @@ for:
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
   - conan export .
-  - cd ..
-  - git clone https://github.com/dimi309/vulkan-loader-conan
-  - cd vulkan-loader-conan
-  - conan export . --version=1.3.239.0
   - cd ../gloom
   - conan build . --build=missing
-  - git clean -fdx
-  - conan build . -o small3d/*:vulkan=True --build=missing
 
 -
   matrix:
     only:
       - job_name: MacOS build
   install:
-  - curl https://sdk.lunarg.com/sdk/download/1.3.239.0/mac/vulkansdk-macos-1.3.239.0.dmg -o vulkansdk-macos-1.3.239.0.dmg
-  - sudo hdiutil attach vulkansdk-macos-1.3.239.0.dmg
-  - sudo /Volumes/vulkansdk-macos-1.3.239.0/InstallVulkan.app/Contents/MacOS/InstallVulkan --root ~/VulkanSDK/1.3.239.0 --accept-licenses --default-answer --confirm-command install
-  - sudo hdiutil detach /Volumes/vulkansdk-macos-1.3.239.0
-  - export VULKAN_SDK=/Users/appveyor/VulkanSDK/1.3.239.0/macOS
-  - export PATH=$PATH:$VULKAN_SDK/bin
-  - export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$VULKAN_SDK/lib
-  - export VK_LAYER_PATH=$VULKAN_SDK/share/vulkan/explicit_layer.d
-  - export VK_ICD_FILENAMES=$VULKAN_SDK/../MoltenVK/dylib/macOS/MoltenVK_icd.json
   - source ~/venv3.10/bin/activate
   - pip install --upgrade pip
   - pip install conan
@@ -69,14 +54,8 @@ for:
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
   - conan export .
-  - cd ..
-  - git clone https://github.com/dimi309/vulkan-loader-conan
-  - cd vulkan-loader-conan
-  - conan export . --version=1.3.239.0
   - cd ../gloom
   - conan build . --build=missing
-  - git clean -fdx
-  - conan build . -o small3d/*:vulkan=True --build=missing
  
 -
   matrix:
@@ -84,14 +63,11 @@ for:
       - job_name: Windows VS 2019 build
 
   install:
-  - choco install vulkan-sdk
-  - refreshenv
   - set PATH=C:\Python38-x64;C:\Python38-x64\scripts;%PATH%
   - python -m pip install --upgrade pip
   - pip install conan
   - conan profile detect
 
-  
   test_script:
   - cd ..
   - git clone https://github.com/dimi309/portaudio-conan
@@ -101,13 +77,7 @@ for:
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
   - conan export .
-  - cd ..
-  - git clone https://github.com/dimi309/vulkan-loader-conan
-  - cd vulkan-loader-conan
-  - conan export . --version=1.3.239.0
   - cd ../gloom
   - conan build . --build=missing
-  - git clean -fdx
-  - conan build . -o small3d/*:vulkan=True --build=missing
 
 build: off
