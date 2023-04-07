@@ -46,15 +46,3 @@ Make sure you clean the repository between different builds:
 
 	git clean -fdx
 
----
-**NOTE**
-
-The conan small3d package no longer supports Vulkan. You can always 
-use Vulkan with small3d if you build small3d with plain cmake. You
-can do so using the scripts available in the [main small3d repository](https://github.com/dimi309/small3d).
-
-I have not provided CMake files for building Gloom without conan
-but you can see how to create an application using small3d with 
-Vulkan and without conan if you follow the [small3d tutorial](https://www.gamedev.net/tutorials/programming/engines-and-middleware/small3d-tutorial-r5655/).
-
----
