@@ -11,7 +11,6 @@ class GloomGameConan(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
-        tc.variables["SMALL3D_OPENGL"] = True
         tc.generate()
         copy(self, "*vert", self.dependencies["small3d"].cpp_info.bindirs[0], os.path.join(self.build_folder, "bin"))
         copy(self, "*frag", self.dependencies["small3d"].cpp_info.bindirs[0], os.path.join(self.build_folder, "bin"))
