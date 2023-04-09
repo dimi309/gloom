@@ -24,7 +24,7 @@ using namespace small3d;
 
 Game::Game() {
 
-  manRunning = new SceneObject("manRunning", "resources/anthropoid.glb", "manRunning");
+  manRunning = new SceneObject("manRunning", "resources/anthropoid.glb");
 
   manRunning->setFrameDelay(8);
   manRunning->getModel().scale = glm::vec3(0.5f);
@@ -32,7 +32,7 @@ Game::Game() {
   manRunning->position = glm::vec3(1.0f, ENEMY_Y_POS, -3.0f);
   manRunning->startAnimating();
 
-  gun = new SceneObject("gun", "resources/gun.glb", "gun");
+  gun = new SceneObject("gun", "resources/gun.glb");
 
   small3d::initLogger();
 
@@ -56,11 +56,10 @@ Game::Game() {
   xMapSize = map.getXsize();
   yMapSize = map.getYsize();
 
-  GlbFile w1("resources/cube.glb");
-  cube = Model(w1, "cube");
+  
+  cube = Model(GlbFile("resources/cube.glb"));
   cube.noShadow = true;
-  GlbFile w2("resources/plane.glb");
-  plane = Model(w2, "plane");
+  plane = Model(GlbFile("resources/plane.glb"));
   plane.noShadow = true;
 
   renderer->generateTexture("tileTexture", Image("resources/images/tile.png"));
