@@ -17,6 +17,8 @@
 #define ENEMY_SPEED 0.05f
 #define TOUCH_DISTANCE 1.7f
 #define SHOOT_DURATION 12
+#define ENEMY_Y_POS -0.4f
+#define ENEMY_Y_DEAD_POS -0.9f
 
 using namespace small3d;
 
@@ -25,8 +27,9 @@ Game::Game() {
   manRunning = new SceneObject("manRunning", "resources/anthropoid.glb", "manRunning");
 
   manRunning->setFrameDelay(8);
+  manRunning->getModel().scale = glm::vec3(0.5f);
 
-  manRunning->position = glm::vec3(1.0f, -1.0f, -3.0f);
+  manRunning->position = glm::vec3(1.0f, ENEMY_Y_POS, -3.0f);
   manRunning->startAnimating();
 
   gun = new SceneObject("gun", "resources/gun.glb", "gun");
@@ -38,19 +41,16 @@ Game::Game() {
   renderer = &small3d::Renderer::getInstance("Gloom", 1024, 768, 0.785f,
     1.0f, 60.0f, "resources/shaders/", 240);
 
-// Shadow mapping on MacOS *with OpenGL* produces a lot of artifacts.
-// It works ok with Vulkan though.
-#if !defined(__APPLE__) || !defined(SMALL3D_OPENGL)
-  renderer->shadowsActive = true;
-  renderer->shadowCamTransformation = glm::rotate(glm::mat4x4(1.0f), 1.07f, glm::vec3(1.0f, 0.0f, 0.0f)) *
-    glm::translate(glm::mat4x4(1.0f), glm::vec3(0.0f, -10.0f, 1.0f));
-#endif
-
 #else
   renderer = &small3d::Renderer::getInstance("Gloom", 0, 0, 0.785f,
     1.0f, 60.0f, "resources/shaders/", 240);
 #endif
 
+
+  renderer->shadowsActive = true;
+  renderer->shadowCamTransformation = glm::rotate(glm::mat4x4(1.0f), 1.07f, glm::vec3(1.0f, 0.0f, 0.0f)) *
+    glm::translate(glm::mat4x4(1.0f), glm::vec3(0.0f, -10.0f, 1.0f));
+  
   map.load(getBasePath() + "resources/map.txt");
 
   xMapSize = map.getXsize();
@@ -69,24 +69,24 @@ Game::Game() {
   Enemy enemy;
 
   enemy.sectorPosition = glm::ivec3(5, 0, 5);
-  enemy.position = glm::vec3(1.0f, 0.0f, 1.0f);
+  enemy.position = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
 
   enemies.push_back(enemy);
 
   enemy.sectorPosition = glm::ivec3(5, 0, 7);
-  enemy.position = glm::vec3(1.0f, 0.0f, 1.0f);
+  enemy.position = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemies.push_back(enemy);
 
   enemy.sectorPosition = glm::ivec3(5, 0, 9);
-  enemy.position = glm::vec3(1.0f, 0.0f, 1.0f);
+  enemy.position = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemies.push_back(enemy);
 
   enemy.sectorPosition = glm::ivec3(10, 0, 10);
-  enemy.position = glm::vec3(1.0f, 0.0f, 1.0f);
+  enemy.position = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemies.push_back(enemy);
 
   enemy.sectorPosition = glm::ivec3(8, 0, 7);
-  enemy.position = glm::vec3(1.0f, 0.0f, 1.0f);
+  enemy.position = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemies.push_back(enemy);
 
   gunshot = Sound("resources/sounds/0438.ogg");
@@ -121,7 +121,7 @@ void Game::init() {
 
   for (std::vector<Enemy>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
     enemy->dead = false;
-    enemy->position = glm::vec3(1.0f, 0.0f, 1.0f);
+    enemy->position = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
   }
   enemies[0].sectorPosition = glm::ivec3(7, 0, 7);
   enemies[1].sectorPosition = glm::ivec3(4, 0, 8);
@@ -411,7 +411,7 @@ void Game::render() {
       if (enemy->inRange) {
         manRunning->position.x = -enemy->diffSectorX * sectorLength + enemy->position.x;
         manRunning->position.z = -enemy->diffSectorZ * sectorLength + enemy->position.z;
-
+        manRunning->position.y = ENEMY_Y_POS;
         int ycoeff = 0;
 
         if (enemy->diffSectorX < 0 || (enemy->diffSectorX == 0 && renderer->cameraPosition.x - enemy->position.x < 0)) {
@@ -436,7 +436,7 @@ void Game::render() {
 
         if (enemy->dead) {
           manRunning->setRotation(glm::vec3(-1.75f, 0.0f, 0.0f));
-          manRunning->position.y = -0.9f;
+          manRunning->position.y = ENEMY_Y_DEAD_POS;
           
         }
         else {
