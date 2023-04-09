@@ -5,7 +5,7 @@ import os
 
 class GloomGameConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    requires = "small3d/master"
+    requires = "small3d/nowavefront"
 
     def generate(self):
         deps = CMakeDeps(self)

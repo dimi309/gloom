@@ -10,7 +10,7 @@
 #include <small3d/Logger.hpp>
 #include <cmath>
 #include <small3d/BasePath.hpp>
-#include <small3d/WavefrontFile.hpp>
+#include <small3d/GlbFile.hpp>
 
 #define CAMERA_ROTATION_SPEED 0.08f
 #define CAMERA_SPEED 0.5f
@@ -22,14 +22,14 @@ using namespace small3d;
 
 Game::Game() {
 
-  manRunning = new SceneObject("manRunning", "resources/anthropoid_run/anthropoid", 11, 0);
+  manRunning = new SceneObject("manRunning", "resources/anthropoid.glb", "manRunning");
 
   manRunning->setFrameDelay(8);
 
   manRunning->position = glm::vec3(1.0f, -1.0f, -3.0f);
   manRunning->startAnimating();
 
-  gun = new SceneObject("gun", "resources/gun.obj");
+  gun = new SceneObject("gun", "resources/gun.glb", "gun");
 
   small3d::initLogger();
 
@@ -56,11 +56,11 @@ Game::Game() {
   xMapSize = map.getXsize();
   yMapSize = map.getYsize();
 
-  WavefrontFile w1("resources/cube.obj");
-  cube = Model(w1, "");
+  GlbFile w1("resources/cube.glb");
+  cube = Model(w1, "cube");
   cube.noShadow = true;
-  WavefrontFile w2("resources/plane.obj");
-  plane = Model(w2, "");
+  GlbFile w2("resources/plane.glb");
+  plane = Model(w2, "plane");
   plane.noShadow = true;
 
   renderer->generateTexture("tileTexture", Image("resources/images/tile.png"));
