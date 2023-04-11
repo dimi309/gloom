@@ -17,7 +17,7 @@
 #define ENEMY_SPEED 0.05f
 #define TOUCH_DISTANCE 1.7f
 #define SHOOT_DURATION 12
-#define ENEMY_Y_POS -0.4f
+#define ENEMY_Y_POS -1.0f
 #define ENEMY_Y_DEAD_POS -0.9f
 
 using namespace small3d;
@@ -27,7 +27,7 @@ Game::Game() {
   manRunning = new SceneObject("manRunning", "resources/anthropoid.glb");
 
   manRunning->setFrameDelay(8);
-  manRunning->getModel().scale = glm::vec3(0.5f);
+  //manRunning->getModel().scale = glm::vec3(0.6f);
 
   manRunning->position = glm::vec3(1.0f, ENEMY_Y_POS, -3.0f);
   manRunning->startAnimating();
