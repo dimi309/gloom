@@ -18,14 +18,14 @@
 #define TOUCH_DISTANCE 1.7f
 #define SHOOT_DURATION 12
 #define ENEMY_Y_POS -1.0f
-#define ENEMY_Y_DEAD_POS -0.9f
+#define ENEMY_Y_DEAD_POS -0.7f
 
 using namespace small3d;
 
 Game::Game() {
 
   manRunning = new SceneObject("manRunning", "resources/anthropoid.glb");
-
+  deadMan = manRunning->getModel();
   manRunning->setFrameDelay(8);
   //manRunning->getModel().scale = glm::vec3(0.6f);
 
@@ -434,9 +434,9 @@ void Game::render() {
         }
 
         if (enemy->dead) {
-          manRunning->setRotation(glm::vec3(-1.75f, 0.0f, 0.0f));
-          manRunning->position.y = ENEMY_Y_DEAD_POS;
-          
+          auto pos = manRunning->position;
+          pos.y = ENEMY_Y_DEAD_POS;
+          renderer->render(deadMan, pos, glm::vec3(-1.75f, 0.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
         }
         else {
 
@@ -446,8 +446,9 @@ void Game::render() {
           manRunning->setRotation(manRotation);
           
           manRunning->animate();
+          renderer->render(*manRunning, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
         }
-        renderer->render(*manRunning, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+        
       }
     }
   }
