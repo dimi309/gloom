@@ -27,7 +27,7 @@ Deploy my variation of the portaudio package for conan as a prerequisite:
 	cd portaudio-conan
 	conan export . --version=19.7.0
 
-And of course, small3d too:
+And of course, [the small3d library](https://github.com/dimi309/small3d) too:
 
 	git clone https://github.com/dimi309/small3d-conan
 	cd small3d-conan
