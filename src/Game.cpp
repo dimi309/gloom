@@ -454,13 +454,13 @@ void Game::render() {
   }
   else {
     renderer->setBackgroundColour(glm::vec4(0.5f, 0.0f, 0.0f, 1.0f));
-    renderer->render(titleRect, MSG_TITLE, false);
+    renderer->render(titleRect, MSG_TITLE, 0, false);
 
     if (won || died) {
-      renderer->render(outcomeRect, MSG_OUTCOME, false);
+      renderer->render(outcomeRect, MSG_OUTCOME, 0, false);
     }
 
-    renderer->render(instructionsRect, MSG_INSTRUCTIONS, false);
+    renderer->render(instructionsRect, MSG_INSTRUCTIONS, 0, false);
 
   }
   renderer->swapBuffers();
