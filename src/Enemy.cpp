@@ -7,5 +7,5 @@
  */
 #include "Enemy.hpp"
 
-Enemy::Enemy() {
+Enemy::Enemy(SceneObject &sceneObject) : SceneObject(sceneObject)  {
 }

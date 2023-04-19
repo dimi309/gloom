@@ -9,20 +9,20 @@
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
+#include <small3d/SceneObject.hpp>
 
-class Enemy {
+class Enemy : public small3d::SceneObject {
 
 public:
-  glm::ivec3 sectorPosition = glm::ivec3(0, 0, 0);
-  glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
-  glm::vec3 rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+  glm::ivec3 sectorPosition = glm::ivec3(0);
+  glm::vec3 worldPosition = glm::vec3(0.0f);
+  glm::vec3 rotation = glm::vec3(0.0f);
   float dotp = 0.0f;
   int diffSectorX = 0;
   int diffSectorZ = 0;
   bool inRange = false;
   bool dead = false;
-  Enemy();
-
+  Enemy(SceneObject &sceneObject);
 
 };
 

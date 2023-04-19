@@ -37,10 +37,8 @@ private:
 
   glm::ivec2 playerSector;
   
-  small3d::SceneObject *manRunning;
-  small3d::SceneObject *gun;
-  small3d::Model deadMan;
-
+  std::unique_ptr<small3d::SceneObject> gun;
+  
   small3d::Sound gunshot;
   
   void renderEnv();
@@ -64,7 +62,6 @@ private:
 
 public:
   Game();
-  ~Game();
   GLFWwindow* getWindow();
   void init();
   void terminate();
