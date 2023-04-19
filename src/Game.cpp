@@ -55,7 +55,9 @@ Game::Game() {
   renderer->generateTexture("tileTexture", Image("resources/images/tile.png"));
   renderer->cameraPosition.y = -0.1f;
 
-  Enemy enemy(SceneObject("enemy", "resources/anthropoid.glb"));
+  SceneObject sobj("enemy", "resources/anthropoid.glb");
+
+  Enemy enemy(sobj);
 
   enemy.setFrameDelay(ENEMY_FRAME_DELAY);
   enemy.sectorPosition = glm::ivec3(5, 0, 5);
@@ -105,9 +107,9 @@ void Game::init() {
 
   playerSector = glm::ivec2(3, 3);
 
-  for (std::vector<Enemy>::iterator &enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
-    enemy->dead = false;
-    enemy->worldPosition = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
+  for (auto &enemy: enemies) {
+    enemy.dead = false;
+    enemy.worldPosition = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
   }
   enemies[0].sectorPosition = glm::ivec3(7, 0, 7);
   enemies[1].sectorPosition = glm::ivec3(4, 0, 8);
@@ -243,39 +245,39 @@ void Game::process(const KeyInput& input) {
 
       bool killedOne = false;
 
-      for (std::vector<Enemy>::iterator &enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
+      for (auto &enemy : enemies) {
 
-        int diffxcoords = playerSector.x - enemy->sectorPosition.x;
-        int diffycoords = playerSector.y - enemy->sectorPosition.z;
+        int diffxcoords = playerSector.x - enemy.sectorPosition.x;
+        int diffycoords = playerSector.y - enemy.sectorPosition.z;
 
-        if (!enemy->dead) {
+        if (!enemy.dead) {
           bool touchx = false, touchy = false;
           if (std::abs(diffxcoords) > 0) {
-            enemy->worldPosition.x = enemy->worldPosition.x +
+            enemy.worldPosition.x = enemy.worldPosition.x +
               ENEMY_SPEED * std::abs(diffxcoords) / diffxcoords;
-            if (enemy->worldPosition.x < -enemySectorRadius) {
-              if (map.getLocation(enemy->sectorPosition.x - 1, enemy->sectorPosition.z) == '#') {
-                enemy->worldPosition.x = -enemySectorRadius;
+            if (enemy.worldPosition.x < -enemySectorRadius) {
+              if (map.getLocation(enemy.sectorPosition.x - 1, enemy.sectorPosition.z) == '#') {
+                enemy.worldPosition.x = -enemySectorRadius;
               }
               else {
-                --enemy->sectorPosition.x;
-                enemy->worldPosition.x = enemySectorRadius;
+                --enemy.sectorPosition.x;
+                enemy.worldPosition.x = enemySectorRadius;
               }
             }
-            if (enemy->worldPosition.x > enemySectorRadius) {
-              if (map.getLocation(enemy->sectorPosition.x + 1, enemy->sectorPosition.z) == '#') {
-                enemy->worldPosition.x = enemySectorRadius;
+            if (enemy.worldPosition.x > enemySectorRadius) {
+              if (map.getLocation(enemy.sectorPosition.x + 1, enemy.sectorPosition.z) == '#') {
+                enemy.worldPosition.x = enemySectorRadius;
               }
               else {
-                ++enemy->sectorPosition.x;
-                enemy->worldPosition.x = -enemySectorRadius;
+                ++enemy.sectorPosition.x;
+                enemy.worldPosition.x = -enemySectorRadius;
               }
             }
           }
           else {
-            float diffx = renderer->cameraPosition.x - enemy->worldPosition.x;
+            float diffx = renderer->cameraPosition.x - enemy.worldPosition.x;
             if (std::abs(diffx) > TOUCH_DISTANCE) {
-              enemy->worldPosition.x += ENEMY_SPEED * std::abs(diffx) / diffx;
+              enemy.worldPosition.x += ENEMY_SPEED * std::abs(diffx) / diffx;
 
             }
             else {
@@ -284,34 +286,34 @@ void Game::process(const KeyInput& input) {
           }
 
           if (std::abs(diffycoords) > 0) {
-            enemy->worldPosition.z = enemy->worldPosition.z +
+            enemy.worldPosition.z = enemy.worldPosition.z +
               ENEMY_SPEED * std::abs(diffycoords) / diffycoords;
-            if (enemy->worldPosition.z < -enemySectorRadius) {
-              if (map.getLocation(enemy->sectorPosition.x, enemy->sectorPosition.z - 1) == '#') {
-                enemy->worldPosition.z = -enemySectorRadius;
+            if (enemy.worldPosition.z < -enemySectorRadius) {
+              if (map.getLocation(enemy.sectorPosition.x, enemy.sectorPosition.z - 1) == '#') {
+                enemy.worldPosition.z = -enemySectorRadius;
               }
               else {
-                --enemy->sectorPosition.z;
-                enemy->worldPosition.z = enemySectorRadius;
+                --enemy.sectorPosition.z;
+                enemy.worldPosition.z = enemySectorRadius;
               }
 
 
             }
-            if (enemy->worldPosition.z > enemySectorRadius) {
-              if (map.getLocation(enemy->sectorPosition.x, enemy->sectorPosition.z + 1) == '#') {
-                enemy->worldPosition.z = enemySectorRadius;
+            if (enemy.worldPosition.z > enemySectorRadius) {
+              if (map.getLocation(enemy.sectorPosition.x, enemy.sectorPosition.z + 1) == '#') {
+                enemy.worldPosition.z = enemySectorRadius;
               }
               else {
-                ++enemy->sectorPosition.z;
-                enemy->worldPosition.z = -enemySectorRadius;
+                ++enemy.sectorPosition.z;
+                enemy.worldPosition.z = -enemySectorRadius;
               }
 
             }
           }
           else {
-            float diffy = renderer->cameraPosition.z - enemy->worldPosition.z;
+            float diffy = renderer->cameraPosition.z - enemy.worldPosition.z;
             if (std::abs(diffy) > TOUCH_DISTANCE) {
-              enemy->worldPosition.z += ENEMY_SPEED * std::abs(diffy) / diffy;
+              enemy.worldPosition.z += ENEMY_SPEED * std::abs(diffy) / diffy;
 
             }
             else {
@@ -323,21 +325,21 @@ void Game::process(const KeyInput& input) {
           }
         }
 
-        enemy->diffSectorX = playerSector.x - enemy->sectorPosition.x;
-        enemy->diffSectorZ = playerSector.y - enemy->sectorPosition.z;
+        enemy.diffSectorX = playerSector.x - enemy.sectorPosition.x;
+        enemy.diffSectorZ = playerSector.y - enemy.sectorPosition.z;
 
-        enemy->inRange = pow(enemy->diffSectorX, 2) + pow(enemy->diffSectorZ, 2) < 2 * pow(localCoordRadius, 2);
+        enemy.inRange = pow(enemy.diffSectorX, 2) + pow(enemy.diffSectorZ, 2) < 2 * pow(localCoordRadius, 2);
 
-        float distanceX = renderer->cameraPosition.x - enemy->worldPosition.x + enemy->diffSectorX * sectorLength;
-        float distanceZ = renderer->cameraPosition.z - enemy->worldPosition.z + enemy->diffSectorZ * sectorLength;
+        float distanceX = renderer->cameraPosition.x - enemy.worldPosition.x + enemy.diffSectorX * sectorLength;
+        float distanceZ = renderer->cameraPosition.z - enemy.worldPosition.z + enemy.diffSectorZ * sectorLength;
         double distance = std::sqrt(std::pow(distanceX, 2) + std::pow(distanceZ, 2));
 
         glm::vec3 normVecToPlayer(distanceZ / distance, distanceX / distance, 0.0f);
         glm::vec3 normCamVec(cos(renderer->getCameraRotationXYZ().y), sin(renderer->getCameraRotationXYZ().y), 0.0f);
-        enemy->dotp = normVecToPlayer.x * normCamVec.x + normVecToPlayer.y * normCamVec.y;
+        enemy.dotp = normVecToPlayer.x * normCamVec.x + normVecToPlayer.y * normCamVec.y;
 
-        if (!enemy->dead && enemy->dotp > 0.992f && shootCount == SHOOT_DURATION && !killedOne) {
-          enemy->dead = true;
+        if (!enemy.dead && enemy.dotp > 0.992f && shootCount == SHOOT_DURATION && !killedOne) {
+          enemy.dead = true;
           killedOne = true;
           ++numDead;
           if (numDead == 5) {
@@ -393,42 +395,42 @@ void Game::render() {
     renderEnv();
     renderer->render(*gun, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
-    for (std::vector<Enemy>::iterator &enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
-      if (enemy->inRange) {
-        enemy->position.x = -enemy->diffSectorX * sectorLength + enemy->worldPosition.x;
-        enemy->position.z = -enemy->diffSectorZ * sectorLength + enemy->worldPosition.z;
-        enemy->position.y = ENEMY_Y_POS;
+    for (auto &enemy : enemies) {
+      if (enemy.inRange) {
+        enemy.position.x = -enemy.diffSectorX * sectorLength + enemy.worldPosition.x;
+        enemy.position.z = -enemy.diffSectorZ * sectorLength + enemy.worldPosition.z;
+        enemy.position.y = ENEMY_Y_POS;
         int ycoeff = 0;
 
-        if (enemy->diffSectorX < 0 || (enemy->diffSectorX == 0 && renderer->cameraPosition.x - enemy->worldPosition.x < 0)) {
-          enemy->setRotation(glm::vec3(0.0f, -1.7f, 0.0f));
-          if (std::abs(enemy->diffSectorX) <= std::abs(enemy->diffSectorZ)) {
+        if (enemy.diffSectorX < 0 || (enemy.diffSectorX == 0 && renderer->cameraPosition.x - enemy.worldPosition.x < 0)) {
+          enemy.setRotation(glm::vec3(0.0f, -1.7f, 0.0f));
+          if (std::abs(enemy.diffSectorX) <= std::abs(enemy.diffSectorZ)) {
             ycoeff = -1;
           }
         }
         else {
-          enemy->setRotation(glm::vec3(0.0f, 1.7f, 0.0f));
-          if (std::abs(enemy->diffSectorX) <= std::abs(enemy->diffSectorZ)) {
+          enemy.setRotation(glm::vec3(0.0f, 1.7f, 0.0f));
+          if (std::abs(enemy.diffSectorX) <= std::abs(enemy.diffSectorZ)) {
             ycoeff = 1;
           }
         }
 
-        if (enemy->diffSectorZ < 0 || (enemy->diffSectorZ == 0 && renderer->cameraPosition.z - enemy->worldPosition.z < 0)) {
-          enemy->rotate(glm::vec3(0.0f, ycoeff * 0.85f, 0.0f));
+        if (enemy.diffSectorZ < 0 || (enemy.diffSectorZ == 0 && renderer->cameraPosition.z - enemy.worldPosition.z < 0)) {
+          enemy.rotate(glm::vec3(0.0f, ycoeff * 0.85f, 0.0f));
         }
         else {
-          enemy->rotate(glm::vec3(0.0f, -ycoeff * 0.85f, 0.0f));
+          enemy.rotate(glm::vec3(0.0f, -ycoeff * 0.85f, 0.0f));
         }
 
-        if (enemy->dead) {
-          auto pos = enemy->position;
+        if (enemy.dead) {
+          auto pos = enemy.position;
           pos.y = ENEMY_Y_DEAD_POS;
-          renderer->render(enemy->getModel(), pos, glm::vec3(-1.75f, 0.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+          renderer->render(enemy.getModel(), pos, glm::vec3(-1.75f, 0.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
         }
         else {
 
-          enemy->animate();
-          renderer->render(*enemy, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+          enemy.animate();
+          renderer->render(enemy, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
         }
 
       }
