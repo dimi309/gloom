@@ -10,9 +10,7 @@ endif()
 
 target_include_directories(gloom PRIVATE ${CMAKE_INCLUDE_PATH})
 
-target_link_libraries(gloom PRIVATE
-  ${small3d_LIBRARIES}
-)
+target_link_libraries(gloom PRIVATE small3d::small3d)
 
 if(MSVC)
   set_target_properties(gloom PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
