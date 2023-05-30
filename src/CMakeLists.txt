@@ -1,12 +1,12 @@
 file(GLOB SOURCE_FILES *.*pp)
 
-find_package(small3d REQUIRED)
-
 if(WIN32)
   add_executable(gloom ${SOURCE_FILES} resources.rc)
 else()
   add_executable(gloom ${SOURCE_FILES})
 endif()
+
+find_package(small3d REQUIRED)
 
 target_include_directories(gloom PRIVATE ${CMAKE_INCLUDE_PATH})
 

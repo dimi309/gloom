@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.15.0)
 
 project(game)
 
 file(COPY "${PROJECT_SOURCE_DIR}/resources" DESTINATION "bin")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
-
 if(MSVC)
   add_definitions("-D_CRT_SECURE_NO_WARNINGS")
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${PROJECT_BINARY_DIR}/bin")
