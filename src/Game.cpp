@@ -27,7 +27,7 @@ Game::Game() {
 
   small3d::initLogger();
 
-  gun = std::make_unique<SceneObject>("gun", "resources/gun.glb");
+  gun = std::make_unique<SceneObject>("gun", Model(GlbFile("resources/gun.glb")));
 
 #if !defined(NDEBUG) 
   renderer = &small3d::Renderer::getInstance("Gloom", 1024, 768, 0.785f,
@@ -55,7 +55,7 @@ Game::Game() {
   renderer->generateTexture("tileTexture", Image("resources/images/tile.png"));
   renderer->cameraPosition.y = -0.1f;
 
-  SceneObject sobj("enemy", "resources/anthropoid.glb");
+  SceneObject sobj("enemy", Model(GlbFile("resources/anthropoid.glb")));
 
   Enemy enemy(sobj);
 
