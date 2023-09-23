@@ -55,7 +55,7 @@ for:
   - cd small3d-conan
   - conan export .
   - cd ../gloom
-  - conan build . -s cppstd.compiler=14 --build=missing
+  - conan build . -s cppstd.compiler=17 --build=missing
  
 -
   matrix:
