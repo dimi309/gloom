@@ -65,7 +65,7 @@ to open an [issue](https://github.com/dimi309/gloom/issues).
 
 ### Steps
 
-You need to execute this script as root, or using sudo:
+Execute the following on the command line:
 
 	pkg update
 	pkg install gcc cmake conan
@@ -89,15 +89,12 @@ You need to execute this script as root, or using sudo:
 	unzip master.zip
 	rm master.zip
 	cd gloom-master
-	conan build . --build=missing -c tools.system.package_manager:mode=install
+	conan build . --build=missing -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
 
 	cd bin
 	./gloom
 
-You will have to be in X windows for the game to run. After it has been built,
-the game does not need root access to be executed. You can copy the bin
-directory in a simple user's home directory and just run it as that simple
-user from there.
+You will have to be in X windows for the game to run. 
 
 If there is no sound in the game, you probably need to set up jack audio. I find
 this guide quite useful to that end: https://github.com/0EVSG/freebsd_jack_notes#jack-configuration
