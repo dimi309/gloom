@@ -45,4 +45,56 @@ Then clone this repository and build and run the game:
 Make sure you clean the repository between different builds:
 
 	git clean -fdx
+	
+## Building the game specifically on FreeBSD
 
+I have recently been told that it might be a good idea to contribute a port of
+this game to FreeBSD. While technically I could do it, it is not clear to me 
+whether or not it would be accepted as a contribution or how to go about 
+"applying" for something like that. I might figure it out someday but, in the
+meantime, I think that anyone can perfectly download the source code and build
+the game for themselves on that platform. The whole point of using conan.io is
+to make such a process a bit simpler :) 
+
+Since some more steps are required than on Linux, I am listing a step-by-step
+walkthrough here below, which also avoids the use of git.
+
+If you try this I would love to hear from you, whether it be about questions and 
+problems, or even to just tell me that it has worked, so please do not hesitate 
+to open an [issue](https://github.com/dimi309/gloom/issues).
+
+### Steps
+
+You need to execute this script as root, or using sudo:
+
+	pkg update
+	pkg install gcc cmake conan
+	conan profile detect
+
+	curl -LO https://github.com/dimi309/portaudio-conan/archive/refs/heads/master.zip
+	unzip master.zip
+	rm master.zip
+	cd portaudio-conan-master
+	conan export . --version=19.7.0
+	cd ..
+
+	curl -LO https://github.com/dimi309/small3d-conan/archive/refs/heads/master.zip
+	unzip master.zip
+	rm master.zip
+	cd small3d-conan-master
+	conan export .
+	cd ..
+
+	curl -LO https://github.com/dimi309/gloom/archive/refs/heads/master.zip
+	unzip master.zip
+	rm master.zip
+	cd gloom-master
+	conan build . --build=missing -c tools.system.package_manager:mode=install
+
+	cd bin
+	./gloom
+
+You will have to be in X windows for the game to run. After it has been built,
+the game does not need root access to be executed. You can copy the bin
+directory in a simple user's home directory and just run it as that simple
+user from there.
