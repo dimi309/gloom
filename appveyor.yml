@@ -1,15 +1,37 @@
 environment:
-  matrix:
+  matrix:      
+    - job_name: MacOS build
+      appveyor_build_worker_image: macos-monterey
+      
     - job_name: Ubuntu Linux build
       appveyor_build_worker_image: Ubuntu2004
-      
-    - job_name: MacOS build
-      appveyor_build_worker_image: macos-bigsur
       
     - job_name: Windows VS 2019 build
       appveyor_build_worker_image: Visual Studio 2019
       
 for:
+-
+  matrix:
+    only:
+      - job_name: MacOS build
+  install:
+  - source ~/venv3.10/bin/activate
+  - pip install --upgrade pip
+  - pip install conan
+  - conan profile detect
+  
+  test_script:
+  - cd ..
+  - git clone https://github.com/dimi309/portaudio-conan
+  - cd portaudio-conan
+  - conan export . --version=19.7.0
+  - cd ..
+  - git clone https://github.com/dimi309/small3d-conan
+  - cd small3d-conan
+  - conan export .
+  - cd ../gloom
+  - conan build . --build=missing
+  
 -
   matrix:
     only:
@@ -34,29 +56,7 @@ for:
   - conan export .
   - cd ../gloom
   - conan build . --build=missing -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
-
--
-  matrix:
-    only:
-      - job_name: MacOS build
-  install:
-  - source ~/venv3.10/bin/activate
-  - pip install --upgrade pip
-  - pip install conan
-  - conan profile detect
   
-  test_script:
-  - cd ..
-  - git clone https://github.com/dimi309/portaudio-conan
-  - cd portaudio-conan
-  - conan export . --version=19.7.0
-  - cd ..
-  - git clone https://github.com/dimi309/small3d-conan
-  - cd small3d-conan
-  - conan export .
-  - cd ../gloom
-  - conan build . -s cppstd.compiler=20 --build=missing
- 
 -
   matrix:
     only:
