@@ -46,6 +46,12 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action,
     input.enter = false;
   if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
     input.space = false;
+
+#ifdef _WIN32
+  if (key == GLFW_KEY_PRINT_SCREEN && action == GLFW_PRESS) {
+    input.prtscr = true;
+  }
+#endif
   
 }
 

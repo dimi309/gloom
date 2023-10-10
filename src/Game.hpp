@@ -65,6 +65,6 @@ public:
   GLFWwindow* getWindow();
   void init();
   void terminate();
-  void process(const KeyInput &input);
+  void process(KeyInput &input);
   void render();
 };

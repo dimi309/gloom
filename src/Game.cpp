@@ -132,7 +132,14 @@ void Game::terminate() {
   }
 }
 
-void Game::process(const KeyInput& input) {
+void Game::process(KeyInput& input) {
+
+#if _WIN32
+  if (input.prtscr) {
+    renderer->screenCapture = true;
+    input.prtscr = false;
+  }
+#endif
 
   if (!inMenu) {
     if (dieCount > 0) {

@@ -15,7 +15,7 @@
  */
 
 typedef struct KeyInput {
-  bool up, down, left, right, enter, esc, space;
+  bool up, down, left, right, enter, esc, prtscr, space;
 
   KeyInput() {
     up = false;
@@ -24,6 +24,7 @@ typedef struct KeyInput {
     right = false;
     enter = false;
     esc = false;
+    prtscr = false;
     space = false;
   }
 
