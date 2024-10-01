@@ -407,27 +407,24 @@ void Game::render() {
         enemy.position.x = -enemy.diffSectorX * sectorLength + enemy.worldPosition.x;
         enemy.position.z = -enemy.diffSectorZ * sectorLength + enemy.worldPosition.z;
         enemy.position.y = ENEMY_Y_POS;
-        int ycoeff = 0;
-
-        if (enemy.diffSectorX < 0 || (enemy.diffSectorX == 0 && renderer->cameraPosition.x - enemy.worldPosition.x < 0)) {
-          enemy.setRotation(glm::vec3(0.0f, -1.7f, 0.0f));
-          if (std::abs(enemy.diffSectorX) <= std::abs(enemy.diffSectorZ)) {
-            ycoeff = -1;
-          }
-        }
-        else {
-          enemy.setRotation(glm::vec3(0.0f, 1.7f, 0.0f));
-          if (std::abs(enemy.diffSectorX) <= std::abs(enemy.diffSectorZ)) {
-            ycoeff = 1;
-          }
-        }
+        float xcoef = 1.0f;
 
         if (enemy.diffSectorZ < 0 || (enemy.diffSectorZ == 0 && renderer->cameraPosition.z - enemy.worldPosition.z < 0)) {
-          enemy.rotate(glm::vec3(0.0f, ycoeff * 0.85f, 0.0f));
+          enemy.setRotation(glm::vec3(0.0f, 3.14f, 0.0f));
+          xcoef = 1.0f;
         }
         else {
-          enemy.rotate(glm::vec3(0.0f, -ycoeff * 0.85f, 0.0f));
+          enemy.setRotation(glm::vec3(0.0f, 0.0f, 0.0f));
+          xcoef = -1.0f;
         }
+
+        if (enemy.diffSectorX < 0 || (enemy.diffSectorX == 0 && renderer->cameraPosition.x - enemy.worldPosition.x < 0)) {
+          enemy.rotate(glm::vec3(0.0f, 0.6f * xcoef, 0.0f));
+        }
+        else if (enemy.diffSectorX > 0 || (enemy.diffSectorX == 0 && renderer->cameraPosition.x - enemy.worldPosition.x > 0)) {
+          enemy.rotate(glm::vec3(0.0f, -0.6f * xcoef, 0.0f));
+        }
+
 
         if (enemy.dead) {
           auto pos = enemy.position;
