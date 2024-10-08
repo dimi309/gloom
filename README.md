@@ -31,7 +31,7 @@ And of course, [the small3d library](https://github.com/dimi309/small3d) too:
 
 	git clone https://github.com/dimi309/small3d-conan
 	cd small3d-conan
-	conan export .
+	conan export . --version=master
 
 Then clone this repository and build and run the game:
 
