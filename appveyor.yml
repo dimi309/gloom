@@ -28,7 +28,7 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan export .
+  - conan export . --version=master
   - cd ../gloom
   - conan build . -s compiler.cppstd=gnu17 --build=missing
   
@@ -53,7 +53,7 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan export .
+  - conan export . --version=master
   - cd ../gloom
   - conan build . --build=missing -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
   
@@ -76,7 +76,7 @@ for:
   - cd ..
   - git clone https://github.com/dimi309/small3d-conan
   - cd small3d-conan
-  - conan export .
+  - conan export . --version=master
   - cd ../gloom
   - conan build . -s compiler.cppstd=17 --build=missing
 
