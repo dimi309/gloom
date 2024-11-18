@@ -39,8 +39,8 @@ Game::Game() {
 #endif
 
   renderer->shadowsActive = true;
-  renderer->shadowCamTransformation = glm::rotate(glm::mat4x4(1.0f), 1.07f, glm::vec3(1.0f, 0.0f, 0.0f)) *
-    glm::translate(glm::mat4x4(1.0f), glm::vec3(0.0f, -10.0f, 1.0f));
+  renderer->shadowCamTransformation = rotate(Mat4(1.0f), 1.07f, Vec3(1.0f, 0.0f, 0.0f)) *
+    translate(Mat4(1.0f), Vec3(0.0f, -10.0f, 1.0f));
 
   map.load(getBasePath() + "resources/map.txt");
 
@@ -60,42 +60,42 @@ Game::Game() {
   Enemy enemy(sobj);
 
   enemy.setFrameDelay(ENEMY_FRAME_DELAY);
-  enemy.sectorPosition = glm::ivec3(5, 0, 5);
-  enemy.worldPosition = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
+  enemy.sectorPosition = Vec3i(5, 0, 5);
+  enemy.worldPosition = Vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemy.startAnimating();
 
   enemies.push_back(enemy);
 
-  enemy.sectorPosition = glm::ivec3(5, 0, 7);
-  enemy.worldPosition = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
+  enemy.sectorPosition = Vec3i(5, 0, 7);
+  enemy.worldPosition = Vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemies.push_back(enemy);
 
-  enemy.sectorPosition = glm::ivec3(5, 0, 9);
-  enemy.worldPosition = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
+  enemy.sectorPosition = Vec3i(5, 0, 9);
+  enemy.worldPosition = Vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemies.push_back(enemy);
 
-  enemy.sectorPosition = glm::ivec3(10, 0, 10);
-  enemy.worldPosition = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
+  enemy.sectorPosition = Vec3i(10, 0, 10);
+  enemy.worldPosition = Vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemies.push_back(enemy);
 
-  enemy.sectorPosition = glm::ivec3(8, 0, 7);
-  enemy.worldPosition = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
+  enemy.sectorPosition = Vec3i(8, 0, 7);
+  enemy.worldPosition = Vec3(1.0f, ENEMY_Y_POS, 1.0f);
   enemies.push_back(enemy);
 
   gunshot = Sound("resources/sounds/0438.ogg");
 
-  renderer->createRectangle(titleRect, glm::vec3(-0.8f, 0.6f, -1.0f),
-    glm::vec3(0.8f, 0.0f, -1.0f));
+  renderer->createRectangle(titleRect, Vec3(-0.8f, 0.6f, -1.0f),
+    Vec3(0.8f, 0.0f, -1.0f));
 
-  renderer->createRectangle(outcomeRect, glm::vec3(-0.6f, -0.2f, -1.0f),
-    glm::vec3(0.6f, -0.4f, -1.0f));
+  renderer->createRectangle(outcomeRect, Vec3(-0.6f, -0.2f, -1.0f),
+    Vec3(0.6f, -0.4f, -1.0f));
 
-  renderer->createRectangle(instructionsRect, glm::vec3(-0.8f, -0.5f, -1.0f),
-    glm::vec3(0.8f, -0.7f, -1.0f));
+  renderer->createRectangle(instructionsRect, Vec3(-0.8f, -0.5f, -1.0f),
+    Vec3(0.8f, -0.7f, -1.0f));
 
-  renderer->generateTexture(MSG_TITLE, "GLOOM!", glm::vec3(1.0f, 0.0f, 0.0f));
+  renderer->generateTexture(MSG_TITLE, "GLOOM!", Vec3(1.0f, 0.0f, 0.0f));
   renderer->generateTexture(MSG_INSTRUCTIONS, "Press enter to play, esc to quit",
-    glm::vec3(1.0f, 0.0f, 0.0f));
+    Vec3(1.0f, 0.0f, 0.0f));
 
 }
 
@@ -105,17 +105,17 @@ GLFWwindow* Game::getWindow() {
 
 void Game::init() {
 
-  playerSector = glm::ivec2(3, 3);
+  playerSector = { 3, 3 };
 
   for (auto &enemy: enemies) {
     enemy.dead = false;
-    enemy.worldPosition = glm::vec3(1.0f, ENEMY_Y_POS, 1.0f);
+    enemy.worldPosition = Vec3(1.0f, ENEMY_Y_POS, 1.0f);
   }
-  enemies[0].sectorPosition = glm::ivec3(7, 0, 7);
-  enemies[1].sectorPosition = glm::ivec3(4, 0, 8);
-  enemies[2].sectorPosition = glm::ivec3(5, 0, 9);
-  enemies[3].sectorPosition = glm::ivec3(3, 0, 10);
-  enemies[4].sectorPosition = glm::ivec3(5, 0, 11);
+  enemies[0].sectorPosition = Vec3i(7, 0, 7);
+  enemies[1].sectorPosition = Vec3i(4, 0, 8);
+  enemies[2].sectorPosition = Vec3i(5, 0, 9);
+  enemies[3].sectorPosition = Vec3i(3, 0, 10);
+  enemies[4].sectorPosition = Vec3i(5, 0, 11);
   inMenu = false;
   died = false;
   won = false;
@@ -125,10 +125,10 @@ void Game::init() {
 void Game::terminate() {
   inMenu = true;
   if (won) {
-    renderer->generateTexture(MSG_OUTCOME, "You won", glm::vec3(1.0f, 0.0f, 0.0f));
+    renderer->generateTexture(MSG_OUTCOME, "You won", Vec3(1.0f, 0.0f, 0.0f));
   }
   else if (died) {
-    renderer->generateTexture(MSG_OUTCOME, "You died", glm::vec3(1.0f, 0.0f, 0.0f));
+    renderer->generateTexture(MSG_OUTCOME, "You died", Vec3(1.0f, 0.0f, 0.0f));
   }
 }
 
@@ -143,7 +143,7 @@ void Game::process(KeyInput& input) {
 
   if (!inMenu) {
     if (dieCount > 0) {
-      renderer->rotateCamera(glm::vec3(0.0f, -1.0f, 0.0f));
+      renderer->rotateCamera(Vec3(0.0f, -1.0f, 0.0f));
       --dieCount;
       if (dieCount == 0) {
         died = true;
@@ -168,10 +168,10 @@ void Game::process(KeyInput& input) {
 
 
       if (input.left) {
-        renderer->rotateCamera(glm::vec3(0.0f, CAMERA_ROTATION_SPEED, 0.0f));
+        renderer->rotateCamera(Vec3(0.0f, CAMERA_ROTATION_SPEED, 0.0f));
       }
       else if (input.right) {
-        renderer->rotateCamera(glm::vec3(0.0f, -CAMERA_ROTATION_SPEED, 0.0f));
+        renderer->rotateCamera(Vec3(0.0f, -CAMERA_ROTATION_SPEED, 0.0f));
       }
 
       if (input.up) {
@@ -341,8 +341,8 @@ void Game::process(KeyInput& input) {
         float distanceZ = renderer->cameraPosition.z - enemy.worldPosition.z + enemy.diffSectorZ * sectorLength;
         double distance = std::sqrt(std::pow(distanceX, 2) + std::pow(distanceZ, 2));
 
-        glm::vec3 normVecToPlayer(distanceZ / distance, distanceX / distance, 0.0f);
-        glm::vec3 normCamVec(cos(renderer->getCameraRotationXYZ().y), sin(renderer->getCameraRotationXYZ().y), 0.0f);
+        Vec3 normVecToPlayer(distanceZ / distance, distanceX / distance, 0.0f);
+        Vec3 normCamVec(cos(renderer->getCameraRotationXYZ().y), sin(renderer->getCameraRotationXYZ().y), 0.0f);
         enemy.dotp = normVecToPlayer.x * normCamVec.x + normVecToPlayer.y * normCamVec.y;
 
         if (!enemy.dead && enemy.dotp > 0.992f && shootCount == SHOOT_DURATION && !killedOne) {
@@ -380,14 +380,14 @@ void Game::renderEnv() {
       switch (region[y * length + x]) {
       case '#':
 
-        renderer->render(cube, glm::vec3(-54.0f + x * 12.0f, -1.2f, -42.0f + y * 12.0f),
-          glm::vec3(0.0f, 0.0f, 0.0f), "tileTexture");
+        renderer->render(cube, Vec3(-54.0f + x * 12.0f, -1.2f, -42.0f + y * 12.0f),
+          Vec3(0.0f, 0.0f, 0.0f), "tileTexture");
         break;
       default:
-        renderer->render(plane, glm::vec3(-54.0f + x * 12.0f, -1.2f, -42.0f + y * 12.0f),
-          glm::vec3(0.0f, 0.0f, 0.0f), "tileTexture");
-        renderer->render(plane, glm::vec3(-54.0f + x * 12.0f, 2.8f, -42.0f + y * 12.0f),
-          glm::vec3(0.0f, 0.0f, 0.0f), "tileTexture");
+        renderer->render(plane, Vec3(-54.0f + x * 12.0f, -1.2f, -42.0f + y * 12.0f),
+          Vec3(0.0f, 0.0f, 0.0f), "tileTexture");
+        renderer->render(plane, Vec3(-54.0f + x * 12.0f, 2.8f, -42.0f + y * 12.0f),
+          Vec3(0.0f, 0.0f, 0.0f), "tileTexture");
 
         break;
       }
@@ -396,11 +396,11 @@ void Game::renderEnv() {
 }
 
 void Game::render() {
-  renderer->setBackgroundColour(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+  renderer->setBackgroundColour(Vec4(0.0f, 0.0f, 0.0f, 1.0f));
   if (!inMenu) {
 
     renderEnv();
-    renderer->render(*gun, glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+    renderer->render(*gun, Vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
     for (auto &enemy : enemies) {
       if (enemy.inRange) {
@@ -410,38 +410,38 @@ void Game::render() {
         float xcoef = 1.0f;
 
         if (enemy.diffSectorZ < 0 || (enemy.diffSectorZ == 0 && renderer->cameraPosition.z - enemy.worldPosition.z < 0)) {
-          enemy.setRotation(glm::vec3(0.0f, 3.14f, 0.0f));
+          enemy.setRotation(Vec3(0.0f, 3.14f, 0.0f));
           xcoef = 1.0f;
         }
         else {
-          enemy.setRotation(glm::vec3(0.0f, 0.0f, 0.0f));
+          enemy.setRotation(Vec3(0.0f, 0.0f, 0.0f));
           xcoef = -1.0f;
         }
 
         if (enemy.diffSectorX < 0 || (enemy.diffSectorX == 0 && renderer->cameraPosition.x - enemy.worldPosition.x < 0)) {
-          enemy.rotate(glm::vec3(0.0f, 0.6f * xcoef, 0.0f));
+          enemy.rotate(Vec3(0.0f, 0.6f * xcoef, 0.0f));
         }
         else if (enemy.diffSectorX > 0 || (enemy.diffSectorX == 0 && renderer->cameraPosition.x - enemy.worldPosition.x > 0)) {
-          enemy.rotate(glm::vec3(0.0f, -0.6f * xcoef, 0.0f));
+          enemy.rotate(Vec3(0.0f, -0.6f * xcoef, 0.0f));
         }
 
 
         if (enemy.dead) {
           auto pos = enemy.position;
           pos.y = ENEMY_Y_DEAD_POS;
-          renderer->render(enemy.getModel(), pos, glm::vec3(-1.75f, 0.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+          renderer->render(enemy.getModel(), pos, Vec3(-1.75f, 0.0f, 0.0f), Vec4(0.0f, 1.0f, 0.0f, 1.0f));
         }
         else {
 
           enemy.animate();
-          renderer->render(enemy, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+          renderer->render(enemy, Vec4(0.0f, 1.0f, 0.0f, 1.0f));
         }
 
       }
     }
   }
   else {
-    renderer->setBackgroundColour(glm::vec4(0.5f, 0.0f, 0.0f, 1.0f));
+    renderer->setBackgroundColour(Vec4(0.5f, 0.0f, 0.0f, 1.0f));
     renderer->render(titleRect, MSG_TITLE, 0, false);
 
     if (won || died) {

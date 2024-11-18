@@ -8,15 +8,15 @@
 #pragma once
 
 #define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
 #include <small3d/SceneObject.hpp>
+#include <small3d/Math.hpp>
 
 class Enemy : public small3d::SceneObject {
 
 public:
-  glm::ivec3 sectorPosition = glm::ivec3(0);
-  glm::vec3 worldPosition = glm::vec3(0.0f);
-  glm::vec3 rotation = glm::vec3(0.0f);
+  small3d::Vec3i sectorPosition;
+  small3d::Vec3 worldPosition;
+  small3d::Vec3 rotation;
   float dotp = 0.0f;
   int diffSectorX = 0;
   int diffSectorZ = 0;

@@ -16,7 +16,15 @@
 #include <vector>
 #include <small3d/Sound.hpp>
 
+struct PlayerSector {
+
+  int x = 0;
+  int y = 0;
+};
+
 class Game {
+
+
 
 private:
 
@@ -35,7 +43,7 @@ private:
   int xMapSize;
   int yMapSize;
 
-  glm::ivec2 playerSector;
+  PlayerSector playerSector;
   
   std::unique_ptr<small3d::SceneObject> gun;
   
